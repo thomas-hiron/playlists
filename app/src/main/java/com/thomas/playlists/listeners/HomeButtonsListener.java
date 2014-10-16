@@ -14,16 +14,12 @@ public class HomeButtonsListener implements View.OnClickListener
     public static final String ACTION_ADD_PLAYLIST = "ADD_PLAYLIST";
     public static final String ACTION_SHUFFLE_PLAYLIST = "SHUFFLE_PLAYLIST";
 
-    /* La vue du fragment utilisé */
-    private View mFragment = null;
-
     /* On garde une référence vers l'activité principale */
     private OnHomeButtonClicked mListener = null;
 
-    public HomeButtonsListener(OnHomeButtonClicked homeButtonClickedListener, View view)
+    public HomeButtonsListener(OnHomeButtonClicked homeButtonClickedListener)
     {
         mListener = homeButtonClickedListener;
-        mFragment = view;
     }
 
     @Override

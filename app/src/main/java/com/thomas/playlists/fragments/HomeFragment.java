@@ -19,7 +19,7 @@ import com.thomas.playlists.listeners.HomeButtonsListener;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link com.thomas.playlists.fragments.HomeFragment.OnHomeButtonClicked} interface
+ * {@link com.thomas.playlists.interfaces.OnHomeButtonClicked} interface
  * to handle interaction events.
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -72,7 +72,7 @@ public class HomeFragment extends Fragment
         Button shufflePlaylist = (Button) view.findViewById(R.id.shufflePlaylist);
 
         /* Création du listener des boutons */
-        homeButtonsListener = new HomeButtonsListener(mListener, view);
+        homeButtonsListener = new HomeButtonsListener(mListener);
 
         /* Ajout des listener */
         addPlaylist.setOnClickListener(homeButtonsListener);
