@@ -33,17 +33,6 @@ public class HomeFragment extends Fragment
 
     private HomeButtonsListener homeButtonsListener = null;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment HomeFragment.
-     */
-    public static HomeFragment newInstance()
-    {
-        return new HomeFragment();
-    }
-
     public HomeFragment()
     {
         // Required empty public constructor

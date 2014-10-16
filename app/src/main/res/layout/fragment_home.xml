@@ -2,14 +2,12 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:layout_weight="1"
               android:orientation="vertical"
               tools:context="com.thomas.playlists.Playlists">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.03"
+        android:layout_height="50dp"
         android:background="@drawable/border_bottom"
         android:orientation="horizontal">
 
@@ -46,8 +44,7 @@
     <FrameLayout
         android:id="@+id/homeContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.97">
+        android:layout_height="wrap_content">
 
     </FrameLayout>
 
