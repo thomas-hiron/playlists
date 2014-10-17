@@ -1,5 +1,7 @@
 package com.thomas.playlists.interfaces;
 
+import com.thomas.playlists.PlaylistSearch;
+
 /**
  * Created by ThomasHiron on 16/10/2014.
  * This interface must be implemented by activities that contain this
@@ -13,5 +15,10 @@ package com.thomas.playlists.interfaces;
  */
 public interface OnPlaylistAdded
 {
-    public void onPlaylistAdded(String s);
+    /**
+     * Formulaire validé
+     *
+     * @param playlistSearch L'objet contenant les infos pour la recherche
+     */
+    public void onPlaylistAdded(PlaylistSearch playlistSearch);
 }

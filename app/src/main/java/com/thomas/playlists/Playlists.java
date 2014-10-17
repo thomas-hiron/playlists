@@ -3,6 +3,7 @@ package com.thomas.playlists;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.thomas.playlists.fragments.AddPlaylistFragment;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
@@ -57,10 +58,14 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     }
 
     @Override
-    /* Formulaire rempli */
-    public void onPlaylistAdded(String s)
+    /**
+     * Formulaire rempli
+     *
+     * @see com.thomas.playlists.interfaces.OnPlaylistAdded
+     */
+    public void onPlaylistAdded(PlaylistSearch playlistSearch)
     {
-
+        Log.v("test", String.valueOf(playlistSearch));
     }
 
     @Override

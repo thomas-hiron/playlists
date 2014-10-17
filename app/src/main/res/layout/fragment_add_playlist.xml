@@ -1,12 +1,13 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
-            tools:context="com.thomas.playlists.Playlists"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            tools:context="com.thomas.playlists.Playlists">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -42,7 +43,7 @@
                 android:textSize="15sp"/>
 
             <RadioGroup
-                android:id="@+id/artistGenre"
+                android:id="@+id/radioArtistGenre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -68,7 +69,7 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/editTextArtistGenre"
+                android:id="@+id/editArtistGenre"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginEnd="10dp"
@@ -97,7 +98,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:hint="@string/nbResults"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:maxLength="3"/>
 
             <EditText
                 android:id="@+id/editMinDanceability"
@@ -133,7 +135,7 @@
                 android:layout_marginStart="10dp"
                 android:hint="@string/minTempo"
                 android:inputType="number"
-                android:maxLength="4"/>
+                android:maxLength="3"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -145,57 +147,65 @@
                 android:text="@string/musicType"
                 android:textSize="15sp"/>
 
-            <CheckBox
-                android:id="@+id/radioStudio"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/musicTypes"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/studio"/>
+                android:orientation="vertical">
 
-            <CheckBox
-                android:id="@+id/radioLive"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/live"/>
+                <CheckBox
+                    android:id="@+id/radioStudio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/studio"/>
 
-            <CheckBox
-                android:id="@+id/radioAcoustic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/acoustic"/>
+                <CheckBox
+                    android:id="@+id/radioLive"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/live"/>
 
-            <CheckBox
-                android:id="@+id/radioElectric"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/electric"/>
+                <CheckBox
+                    android:id="@+id/radioAcoustic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/acoustic"/>
 
-            <CheckBox
-                android:id="@+id/radioChristmas"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:text="@string/christmas"/>
+                <CheckBox
+                    android:id="@+id/radioElectric"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/electric"/>
+
+                <CheckBox
+                    android:id="@+id/radioChristmas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:text="@string/christmas"/>
+
+            </LinearLayout>
 
             <Button
                 android:id="@+id/validAddPlaylist"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/valid"
+                android:layout_marginBottom="15dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"/>
+                android:text="@string/valid"/>
 
         </LinearLayout>
 
