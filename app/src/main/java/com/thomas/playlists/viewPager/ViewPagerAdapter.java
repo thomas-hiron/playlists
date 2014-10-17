@@ -2,14 +2,15 @@ package com.thomas.playlists.viewPager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
 /**
  * Created by ThomasHiron on 16/10/2014.
  */
-public class ViewPagerAdapter extends FragmentPagerAdapter
+public class ViewPagerAdapter extends FragmentStatePagerAdapter
 {
     ArrayList<Fragment> mList = null;
 
@@ -36,7 +37,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
     {
         /* On supprime le dernier s'il y a plus d'un élément */
         if(mList.size() > 1)
-            mList.remove(mList.size() - 1);
+            mList.remove(getCount() - 1);
     }
 
     @Override
@@ -49,5 +50,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter
     public int getCount()
     {
         return mList.size();
+    }
+
+    @Override
+    public Object instantiateItem(ViewGroup container, int position)
+    {
+
+        return super.instantiateItem(container, position);
     }
 }

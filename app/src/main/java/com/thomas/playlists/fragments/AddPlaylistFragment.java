@@ -36,6 +36,11 @@ public class AddPlaylistFragment extends Fragment implements View.OnClickListene
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -92,7 +97,7 @@ public class AddPlaylistFragment extends Fragment implements View.OnClickListene
         if(artistGenre.equals(""))
         {
             Toast.makeText(ac, "Le champ artiste/genre doit être renseigné.", Toast.LENGTH_LONG).show();
-//            return;
+            return;
         }
 
         /* Sinon on continue et on construit l'objet de recherche */

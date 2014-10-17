@@ -1,18 +1,22 @@
 package com.thomas.playlists;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 
+import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
+import com.thomas.playlists.fragments.HomeFragment;
+import com.thomas.playlists.fragments.PlaylistFragment;
+import com.thomas.playlists.fragments.ShuffleFragment;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.interfaces.OnPlaylistAdded;
 import com.thomas.playlists.listeners.HomeButtonsListener;
 import com.thomas.playlists.viewPager.MyViewPager;
 import com.thomas.playlists.viewPager.ViewPagerAdapter;
 
-public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded
+public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded, PlaylistFragment.OnFragmentInteractionListener
 {
     private ViewPagerAdapter mViewPagerAdapter = null;
     private ViewPager mViewPager = null;
@@ -28,8 +32,8 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 
         /* Ajout de l'adapter au viewPager */
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        mViewPagerAdapter.add(new HomeFragment());
-        mViewPagerAdapter.add(new AddPlaylistFragment());
+        mViewPagerAdapter.add(new HomeFragment());
+//        mViewPagerAdapter.add(new AddPlaylistFragment());
         mViewPager.setAdapter(mViewPagerAdapter);
 
         setContentView(mViewPager);
@@ -43,18 +47,14 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     {
         /* Ajout d'une nouvelle playlist */
         if(action.equals(HomeButtonsListener.ACTION_ADD_PLAYLIST))
-        {
-            /* Ajout du nouveau fragment */
             mViewPagerAdapter.add(new AddPlaylistFragment());
 
-            /* Mise à jour */
-            updateViewPager();
-        }
         /* Génération aléatoire d'une nouvelle playlist */
         else if(action.equals(HomeButtonsListener.ACTION_SHUFFLE_PLAYLIST))
-        {
+            mViewPagerAdapter.add(new ShuffleFragment());
 
-        }
+        /* Mise à jour */
+        updateViewPager();
     }
 
     @Override
@@ -65,7 +65,31 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
      */
     public void onPlaylistAdded(PlaylistSearch playlistSearch)
     {
-        Log.v("test", String.valueOf(playlistSearch));
+        /* Le fragment */
+        PlaylistFragment playlistFragment = new PlaylistFragment();
+
+        /* Ajout du nouveau fragment */
+        mViewPagerAdapter.add(playlistFragment);
+
+        /* Mise à jour */
+        updateViewPager();
+
+        /* Chargement de la playlist via l'API */
+        EchoNestWrapper.setApiKey(Playlists.this);
+
+        /* Chargement via le loader */
+        playlistFragment.search(playlistSearch);
+    }
+
+    /**
+     * Un item d'une playlist cliqué
+     *
+     * @param uri
+     */
+    @Override
+    public void onFragmentInteraction(Uri uri)
+    {
+
     }
 
     @Override
