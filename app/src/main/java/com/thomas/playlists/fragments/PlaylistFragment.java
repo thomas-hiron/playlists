@@ -5,7 +5,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
-import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.content.Loader;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -29,7 +28,6 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     private OnFragmentInteractionListener mListener;
     private int PLAYLIST_LOADER_ID = 1;
     private PlaylistSearch playlistSearch = null;
-    private boolean doSearch = false;
 
     public PlaylistFragment()
     {
@@ -60,34 +58,19 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
             throw new ClassCastException(activity.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-
-//        doSearch();
     }
 
     @Override
     public void onDetach()
     {
         super.onDetach();
-
-        ((AsyncTaskLoader) getLoaderManager().getLoader(PLAYLIST_LOADER_ID)).cancelLoad();
         mListener = null;
     }
 
     public void search(PlaylistSearch pPlaylistSearch)
     {
         playlistSearch = pPlaylistSearch;
-
-//        doSearch = true;
-        doSearch();
-    }
-
-    private void doSearch()
-    {
-//        if(doSearch && isAdded())
-//        {
         getLoaderManager().initLoader(PLAYLIST_LOADER_ID, null, this);
-//            doSearch = false;
-//        }
     }
 
     @Override

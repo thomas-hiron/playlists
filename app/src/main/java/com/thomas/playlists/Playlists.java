@@ -3,7 +3,6 @@ package com.thomas.playlists;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
@@ -19,7 +18,7 @@ import com.thomas.playlists.viewPager.ViewPagerAdapter;
 public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded, PlaylistFragment.OnFragmentInteractionListener
 {
     private ViewPagerAdapter mViewPagerAdapter = null;
-    private ViewPager mViewPager = null;
+    private MyViewPager mViewPager = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -102,11 +101,11 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
             return;
         }
 
-        /* On supprime le dernier élément */
-        mViewPagerAdapter.removeLast();
+        /* Pour supprimer le dernier élement lors du scroll terminé */
+        mViewPager.setRemoveLast(true);
 
-        /* Mise à jour */
-        updateViewPager();
+        /* Scroll */
+        mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 2);
     }
 
     /**

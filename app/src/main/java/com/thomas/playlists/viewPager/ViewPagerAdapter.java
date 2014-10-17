@@ -3,6 +3,7 @@ package com.thomas.playlists.viewPager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -33,11 +34,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     /**
      * Supprime le dernier élément de la liste
      */
-    public void removeLast()
+    public ViewPagerAdapter removeLast()
     {
         /* On supprime le dernier s'il y a plus d'un élément */
         if(mList.size() > 1)
             mList.remove(getCount() - 1);
+
+        Log.v("test", "removed");
+
+        /* Retour de l'instance */
+        return this;
     }
 
     @Override
@@ -55,7 +61,12 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public Object instantiateItem(ViewGroup container, int position)
     {
-
         return super.instantiateItem(container, position);
+    }
+
+    @Override
+    public int getItemPosition(Object object)
+    {
+        return POSITION_NONE;
     }
 }
