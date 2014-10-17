@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Playlists</string>
+    <string name="myPlaylists">Mes playlists</string>
+    <string name="action_settings">Settings</string>
+    <string name="addPlaylist">Ajouter une playlist</string>
+    <string name="searchWith">Rechercher par</string>
+    <string name="genre">Genre</string>
+    <string name="artist">Artiste</string>
+    <string name="enterSearch">Entrez la recherche</string>
+    <string name="optionalFields">Champs optionnels</string>
+    <string name="nbResults">Nombre de résultats</string>
+    <string name="musicType">Type de la musique</string>
+    <string name="minDanceability">Danceabilité minimum (0 à 10)</string>
+    <string name="dateCreationGroupArtist">Année de création du groupe/artiste</string>
+    <string name="minTempo">Tempo minimum</string>
+    <string name="studio">Studio</string>
+    <string name="live">Live</string>
+    <string name="acoustic">Acoustic</string>
+    <string name="electric">Electric</string>
+    <string name="christmas">Christmas</string>
+    <string name="valid">Valider</string>
+
+    <string-array name="musicTypeArray">
+        <item>@string/musicType</item>
+        <item>Live</item>
+        <item>Studio</item>
+        <item>Acoustique</item>
+        <item>Electrique</item>
+        <item>Noël</item>
+    </string-array>
+    <string-array name="musicTypeValues">
+        <item>null</item>
+        <item>live</item>
+        <item>studio</item>
+        <item>acoustic</item>
+        <item>electric</item>
+        <item>christmas</item>
+    </string-array>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="playlist">Playlist</string>
+    <string name="loading">Chargement...</string>
+
+</resources>
