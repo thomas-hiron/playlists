@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.echonest.api.v4.Playlist;
@@ -17,6 +18,7 @@ import com.thomas.playlists.PlayListLoader;
 import com.thomas.playlists.PlaylistAdapter;
 import com.thomas.playlists.PlaylistSearch;
 import com.thomas.playlists.R;
+import com.thomas.playlists.listeners.SavePlaylistListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -102,9 +104,16 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Playlist> objectLoader, Playlist playlist)
     {
-        /* Ajout des morceaux */
         if(playlist != null)
+        {
+            /* Ajout des morceaux */
             mAdapter.addAll(playlist.getSongs());
+
+            /* Ajout du listener pour l'enregistrement de la playlist */
+            Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);
+            saveButton.setOnClickListener(new SavePlaylistListener());
+        }
+        /* Sinon affichage des erreurs */
         else
             Toast.makeText(getActivity(), "Une erreur s'est produite avec l'API", Toast.LENGTH_LONG).show();
     }

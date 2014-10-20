@@ -78,7 +78,6 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:hint="@string/enterSearch"
-                android:text="Jimi Hendrix"
                 android:inputType="text"/>
 
             <TextView
