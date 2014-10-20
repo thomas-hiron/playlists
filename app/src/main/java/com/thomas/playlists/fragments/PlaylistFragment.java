@@ -6,14 +6,15 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.Toast;
 
 import com.echonest.api.v4.Playlist;
 import com.thomas.playlists.PlayListLoader;
+import com.thomas.playlists.PlaylistAdapter;
 import com.thomas.playlists.PlaylistSearch;
 import com.thomas.playlists.R;
 
@@ -28,19 +29,32 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     private OnFragmentInteractionListener mListener;
     private int PLAYLIST_LOADER_ID = 1;
     private PlaylistSearch playlistSearch = null;
+    private PlaylistAdapter mAdapter = null;
 
     public PlaylistFragment()
     {
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+
+        /* Instanciation de l'adapter */
+        mAdapter = new PlaylistAdapter(getActivity());
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_playlist, container, false);
+        View view = inflater.inflate(R.layout.fragment_playlist_results, container, false);
+
+        // Set the adapter
+        AbsListView mListView = (AbsListView) view.findViewById(android.R.id.list);
+        mListView.setAdapter(mAdapter);
 
         return view;
     }
@@ -90,8 +104,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     {
         /* Ajout des morceaux */
         if(playlist != null)
-            Log.v("test", playlist.getSongs().size() + "");
-//            mAdapter.addAll(playlist.getSongs());
+            mAdapter.addAll(playlist.getSongs());
         else
             Toast.makeText(getActivity(), "Une erreur s'est produite avec l'API", Toast.LENGTH_LONG).show();
     }

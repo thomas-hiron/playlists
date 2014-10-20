@@ -3,9 +3,6 @@ package com.thomas.playlists.api;
 import android.content.Context;
 
 import com.echonest.api.v4.EchoNestAPI;
-import com.echonest.api.v4.EchoNestException;
-import com.echonest.api.v4.Playlist;
-import com.echonest.api.v4.PlaylistParams;
 import com.thomas.playlists.R;
 import com.thomas.playlists.exceptions.EchoNestWrapperException;
 
@@ -39,26 +36,26 @@ public class EchoNestWrapper
         return mInstance;
     }
 
-    public static Playlist getArtistRadio(int results, String artist) throws EchoNestWrapperException, EchoNestException
-    {
-        PlaylistParams params = new PlaylistParams();
-
-        params.includeArtistFamiliarity();
-        params.includeArtistHotttnesss();
-
-        params.addIDSpace("7digital-US");
-        params.addIDSpace("spotify-WW");
-        params.includeTracks();
-
-        params.addArtist(artist);
-        params.setType(PlaylistParams.PlaylistType.ARTIST_RADIO);
-
-        params.setResults(results);
-
-//        Playlist playlist = getInstance().createStaticPlaylist(params);
+//    public static Playlist getArtistRadio(int results, String artist) throws EchoNestWrapperException, EchoNestException
+//    {
+//        PlaylistParams params = new PlaylistParams();
 //
-//        return playlist;
-
-        return null;
-    }
+//        params.includeArtistFamiliarity();
+//        params.includeArtistHotttnesss();
+//
+//        params.addIDSpace("7digital-US");
+//        params.addIDSpace("spotify-WW");
+//        params.includeTracks();
+//
+//        params.addArtist(artist);
+//        params.setType(PlaylistParams.PlaylistType.ARTIST_RADIO);
+//
+//        params.setResults(results);
+//
+////        Playlist playlist = getInstance().createStaticPlaylist(params);
+////
+////        return playlist;
+//
+//        return null;
+//    }
 }

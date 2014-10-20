@@ -44,6 +44,9 @@ public class PlaylistSearch
     {
         PlaylistParams params = new PlaylistParams();
 
+        params.includeArtistFamiliarity();
+        params.includeArtistHotttnesss();
+
         /* La danceabilité et le tempo min */
         params.setMinDanceability(danceability);
         params.setMinTempo(tempo);

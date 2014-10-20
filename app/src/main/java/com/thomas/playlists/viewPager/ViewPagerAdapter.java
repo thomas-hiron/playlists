@@ -3,7 +3,6 @@ package com.thomas.playlists.viewPager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
@@ -39,8 +38,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
         /* On supprime le dernier s'il y a plus d'un élément */
         if(mList.size() > 1)
             mList.remove(getCount() - 1);
-
-        Log.v("test", "removed");
 
         /* Retour de l'instance */
         return this;

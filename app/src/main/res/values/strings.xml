@@ -42,5 +42,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="playlist">Playlist</string>
     <string name="loading">Chargement...</string>
+    <string name="cover">Cover</string>
+    <string name="results">Résultats</string>
 
 </resources>

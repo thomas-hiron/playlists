@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentActivity;
 
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
-import com.thomas.playlists.fragments.HomeFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
 import com.thomas.playlists.fragments.ShuffleFragment;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
@@ -31,8 +30,8 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 
         /* Ajout de l'adapter au viewPager */
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-        mViewPagerAdapter.add(new HomeFragment());
-//        mViewPagerAdapter.add(new AddPlaylistFragment());
+//        mViewPagerAdapter.add(new HomeFragment());
+        mViewPagerAdapter.add(new AddPlaylistFragment());
         mViewPager.setAdapter(mViewPagerAdapter);
 
         setContentView(mViewPager);
