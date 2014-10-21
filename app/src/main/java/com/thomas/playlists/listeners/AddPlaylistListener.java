@@ -82,7 +82,7 @@ public class AddPlaylistListener implements View.OnClickListener
 
         /* Si non vide */
         if(!danceability.equals(""))
-            playlistSearch.setDanceability(Integer.parseInt(danceability) / 10);
+            playlistSearch.setDanceability(Float.parseFloat(danceability) / 10);
 
         /* L'année de création */
         EditText eDateCreation = (EditText) mView.findViewById(R.id.editDateCreation);

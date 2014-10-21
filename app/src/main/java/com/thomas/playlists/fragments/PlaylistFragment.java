@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.echonest.api.v4.Playlist;
+import com.echonest.api.v4.Song;
 import com.thomas.playlists.PlayListLoader;
 import com.thomas.playlists.PlaylistAdapter;
 import com.thomas.playlists.PlaylistSearch;
+import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
 import com.thomas.playlists.listeners.SavePlaylistListener;
@@ -29,9 +31,10 @@ import com.thomas.playlists.listeners.SavePlaylistListener;
  */
 public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCallbacks<Playlist>
 {
+    private static int PLAYLIST_LOADER_ID = 1;
+
     private OnPlaylistItemClicked mListener;
-    private int PLAYLIST_LOADER_ID = 1;
-    private PlaylistSearch playlistSearch = null;
+    private PlaylistSearch mPlaylistSearch = null;
     private PlaylistAdapter mAdapter = null;
 
     public PlaylistFragment()
@@ -82,7 +85,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         catch(ClassCastException e)
         {
             throw new ClassCastException(activity.toString()
-                    + " must implement OnFragmentInteractionListener");
+                    + " must implement OnPlaylistItemClicked");
         }
     }
 
@@ -95,7 +98,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
 
     public void search(PlaylistSearch pPlaylistSearch)
     {
-        playlistSearch = pPlaylistSearch;
+        mPlaylistSearch = pPlaylistSearch;
         getLoaderManager().initLoader(PLAYLIST_LOADER_ID, null, this);
     }
 
@@ -106,7 +109,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         PlayListLoader loader = new PlayListLoader(getActivity());
 
         /* Ajout du playlistSearch */
-        loader.setPlaylistSearch(playlistSearch);
+        loader.setPlaylistSearch(mPlaylistSearch);
 
         return loader;
     }
@@ -117,7 +120,8 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         if(playlist != null)
         {
             /* Ajout des morceaux */
-            mAdapter.addAll(playlist.getSongs());
+            for(Song song : playlist.getSongs())
+               mAdapter.add(new PlaylistSong(song));
 
             /* Ajout du listener pour l'enregistrement de la playlist */
             Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);

@@ -16,7 +16,7 @@ import com.squareup.picasso.Picasso;
  *
  * @author ThomasHiron
  */
-public class PlaylistAdapter extends ArrayAdapter<Song>
+public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
 {
     /* L'inflater */
     private LayoutInflater mInflater = null;
@@ -35,13 +35,14 @@ public class PlaylistAdapter extends ArrayAdapter<Song>
 
         /* Création de la vue */
         if(convertView == null)
-            view = mInflater.inflate(R.layout.fragment_song, parent, false);
+            view = mInflater.inflate(R.layout.fragment_item_song, parent, false);
         /* On garde la vue transmise */
         else
             view = convertView;
 
         /* Récupération du son */
-        Song song = getItem(position);
+        PlaylistSong playlistSong = getItem(position);
+        Song song = playlistSong.getSong();
 
         /* L'image de l'artiste */
         String cover = "";
@@ -76,6 +77,9 @@ public class PlaylistAdapter extends ArrayAdapter<Song>
         /* Ajout de l'image */
         if(cover != null && !cover.equals(""))
             Picasso.with(getContext()).load(cover).into(imageView);
+
+        /* Ajout de la cover */
+        playlistSong.setCover(cover);
 
         return view;
     }

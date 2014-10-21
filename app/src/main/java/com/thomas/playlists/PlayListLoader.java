@@ -31,7 +31,7 @@ public class PlayListLoader extends AsyncTaskLoader<Playlist>
             PlaylistParams params = playlistSearch.getParams();
 
             /* Requête à l'API */
-            mPlaylist  = EchoNestWrapper.getInstance().createStaticPlaylist(params);
+            mPlaylist = EchoNestWrapper.getInstance().createStaticPlaylist(params);
         }
         catch(EchoNestWrapperException e)
         {

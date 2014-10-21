@@ -2,13 +2,14 @@ package com.thomas.playlists;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
+import android.widget.Toast;
 
-import com.echonest.api.v4.Song;
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
 import com.thomas.playlists.fragments.ShuffleFragment;
+import com.thomas.playlists.fragments.SongDetailFragment;
+import com.thomas.playlists.interfaces.OnArtistClicked;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.interfaces.OnPlaylistAdded;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
@@ -16,7 +17,7 @@ import com.thomas.playlists.listeners.HomeButtonsListener;
 import com.thomas.playlists.viewPager.MyViewPager;
 import com.thomas.playlists.viewPager.ViewPagerAdapter;
 
-public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded, OnPlaylistItemClicked
+public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded, OnPlaylistItemClicked, OnArtistClicked
 {
     private ViewPagerAdapter mViewPagerAdapter = null;
     private MyViewPager mViewPager = null;
@@ -87,9 +88,27 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
      * @param song
      */
     @Override
-    public void onPlaylistItemClicked(Song song)
+    public void onPlaylistItemClicked(PlaylistSong song)
     {
-        Log.v("test", song.getTitle());
+        /* Le fragment */
+        SongDetailFragment songDetailFragment = new SongDetailFragment(song);
+
+        /* Ajout du nouveau fragment */
+        mViewPagerAdapter.add(songDetailFragment);
+
+        /* Mise à jour */
+        updateViewPager();
+    }
+
+    /**
+     * Au clic sur un artiste de la vue détaillée
+     *
+     * @param song
+     */
+    @Override
+    public void onArtistClicked(PlaylistSong song)
+    {
+        Toast.makeText(getApplicationContext(), "Yeah !", Toast.LENGTH_LONG).show();
     }
 
     @Override

@@ -46,6 +46,7 @@ public class PlaylistSearch
 
         params.includeArtistFamiliarity();
         params.includeArtistHotttnesss();
+        params.includeSongHotttnesss();
 
         /* La danceabilité et le tempo min */
         params.setMinDanceability(danceability);
@@ -76,8 +77,7 @@ public class PlaylistSearch
         {
             params.addArtist(artistGenre);
             params.setType(PlaylistParams.PlaylistType.ARTIST_RADIO);
-        }
-        else
+        } else
         {
             params.addGenre(artistGenre);
             params.setType(PlaylistParams.PlaylistType.GENRE_RADIO);

@@ -5,7 +5,7 @@ import com.thomas.playlists.PlaylistSong;
 /**
  * Created by ThomasHiron on 21/10/2014.
  */
-public interface OnPlaylistItemClicked
+public interface OnArtistClicked
 {
-    public void onPlaylistItemClicked(PlaylistSong song);
+    public void onArtistClicked(PlaylistSong song);
 }
