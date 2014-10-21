@@ -2,10 +2,10 @@ package com.thomas.playlists;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.widget.Toast;
 
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
+import com.thomas.playlists.fragments.ArtistDetailFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
 import com.thomas.playlists.fragments.ShuffleFragment;
 import com.thomas.playlists.fragments.SongDetailFragment;
@@ -108,7 +108,14 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     @Override
     public void onArtistClicked(PlaylistSong song)
     {
-        Toast.makeText(getApplicationContext(), "Yeah !", Toast.LENGTH_LONG).show();
+        /* Le fragment */
+        ArtistDetailFragment artistDetailFragment = new ArtistDetailFragment(song);
+
+        /* Ajout du nouveau fragment */
+        mViewPagerAdapter.add(artistDetailFragment);
+
+        /* Mise à jour */
+        updateViewPager();
     }
 
     @Override

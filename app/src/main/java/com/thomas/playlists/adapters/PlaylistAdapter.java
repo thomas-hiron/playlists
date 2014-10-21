@@ -1,4 +1,4 @@
-package com.thomas.playlists;
+package com.thomas.playlists.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.echonest.api.v4.Song;
 import com.squareup.picasso.Picasso;
+import com.thomas.playlists.PlaylistSong;
+import com.thomas.playlists.R;
 
 /**
  * Created by ThomasHiron on 14/10/2014.

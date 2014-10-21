@@ -44,10 +44,6 @@ public class PlaylistSearch
     {
         PlaylistParams params = new PlaylistParams();
 
-        params.includeArtistFamiliarity();
-        params.includeArtistHotttnesss();
-        params.includeSongHotttnesss();
-
         /* La danceabilité et le tempo min */
         params.setMinDanceability(danceability);
         params.setMinTempo(tempo);
@@ -64,8 +60,10 @@ public class PlaylistSearch
         for(String s : musicTypes)
             params.addStyle(s);
 
-        params.includeArtistFamiliarity();
+        params.includeArtistHotttnesss();
+        params.includeSongHotttnesss();
         params.includeAudioSummary();
+        params.includeArtistLocation();
 
         /* Les API externes */
         params.addIDSpace("7digital-US");

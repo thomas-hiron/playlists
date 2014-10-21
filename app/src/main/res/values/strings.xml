@@ -21,28 +21,11 @@
     <string name="electric">Electric</string>
     <string name="christmas">Christmas</string>
     <string name="valid">Valider</string>
-
-    <string-array name="musicTypeArray">
-        <item>@string/musicType</item>
-        <item>Live</item>
-        <item>Studio</item>
-        <item>Acoustique</item>
-        <item>Electrique</item>
-        <item>Noël</item>
-    </string-array>
-    <string-array name="musicTypeValues">
-        <item>null</item>
-        <item>live</item>
-        <item>studio</item>
-        <item>acoustic</item>
-        <item>electric</item>
-        <item>christmas</item>
-    </string-array>
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="playlist">Playlist</string>
     <string name="loading">Chargement...</string>
     <string name="mCover">Cover</string>
     <string name="results">Résultats</string>
+    <string name="albums">Albums</string>
 
 </resources>
