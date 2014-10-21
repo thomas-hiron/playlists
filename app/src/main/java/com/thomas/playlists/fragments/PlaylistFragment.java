@@ -1,7 +1,6 @@
 package com.thomas.playlists.fragments;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -10,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -18,17 +18,18 @@ import com.thomas.playlists.PlayListLoader;
 import com.thomas.playlists.PlaylistAdapter;
 import com.thomas.playlists.PlaylistSearch;
 import com.thomas.playlists.R;
+import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
 import com.thomas.playlists.listeners.SavePlaylistListener;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PlaylistFragment.OnFragmentInteractionListener} interface
+ * {@link com.thomas.playlists.interfaces.OnPlaylistItemClicked} interface
  * to handle interaction events.
  */
 public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCallbacks<Playlist>
 {
-    private OnFragmentInteractionListener mListener;
+    private OnPlaylistItemClicked mListener;
     private int PLAYLIST_LOADER_ID = 1;
     private PlaylistSearch playlistSearch = null;
     private PlaylistAdapter mAdapter = null;
@@ -58,6 +59,15 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         AbsListView mListView = (AbsListView) view.findViewById(android.R.id.list);
         mListView.setAdapter(mAdapter);
 
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+            {
+                mListener.onPlaylistItemClicked(mAdapter.getItem(i));
+            }
+        });
+
         return view;
     }
 
@@ -67,7 +77,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         super.onAttach(activity);
         try
         {
-            mListener = (OnFragmentInteractionListener) activity;
+            mListener = (OnPlaylistItemClicked) activity;
         }
         catch(ClassCastException e)
         {
@@ -123,20 +133,4 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     {
 
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener
-    {
-        public void onFragmentInteraction(Uri uri);
-    }
-
 }

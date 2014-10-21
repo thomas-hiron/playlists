@@ -1,20 +1,22 @@
 package com.thomas.playlists;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 
+import com.echonest.api.v4.Song;
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
 import com.thomas.playlists.fragments.ShuffleFragment;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.interfaces.OnPlaylistAdded;
+import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
 import com.thomas.playlists.listeners.HomeButtonsListener;
 import com.thomas.playlists.viewPager.MyViewPager;
 import com.thomas.playlists.viewPager.ViewPagerAdapter;
 
-public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded, PlaylistFragment.OnFragmentInteractionListener
+public class Playlists extends FragmentActivity implements OnHomeButtonClicked, OnPlaylistAdded, OnPlaylistItemClicked
 {
     private ViewPagerAdapter mViewPagerAdapter = null;
     private MyViewPager mViewPager = null;
@@ -82,12 +84,12 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     /**
      * Un item d'une playlist cliqué
      *
-     * @param uri
+     * @param song
      */
     @Override
-    public void onFragmentInteraction(Uri uri)
+    public void onPlaylistItemClicked(Song song)
     {
-
+        Log.v("test", song.getTitle());
     }
 
     @Override
