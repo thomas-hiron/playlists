@@ -1,4 +1,4 @@
-package com.thomas.playlists;
+package com.thomas.playlists.loaders;
 
 import android.content.Context;
 import android.support.v4.content.AsyncTaskLoader;
@@ -6,6 +6,7 @@ import android.support.v4.content.AsyncTaskLoader;
 import com.echonest.api.v4.EchoNestException;
 import com.echonest.api.v4.Playlist;
 import com.echonest.api.v4.PlaylistParams;
+import com.thomas.playlists.PlaylistSearch;
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.exceptions.EchoNestWrapperException;
 

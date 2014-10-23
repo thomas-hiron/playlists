@@ -27,5 +27,8 @@
     <string name="mCover">Cover</string>
     <string name="results">Résultats</string>
     <string name="albums">Albums</string>
+    <string name="photos">Photos</string>
+    <string name="biography">Biographie</string>
+    <string name="moreInfos">Informations supplémentaires</string>
 
 </resources>

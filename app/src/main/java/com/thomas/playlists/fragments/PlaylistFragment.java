@@ -15,13 +15,13 @@ import android.widget.Toast;
 
 import com.echonest.api.v4.Playlist;
 import com.echonest.api.v4.Song;
-import com.thomas.playlists.PlayListLoader;
 import com.thomas.playlists.PlaylistSearch;
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.PlaylistAdapter;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
 import com.thomas.playlists.listeners.SavePlaylistListener;
+import com.thomas.playlists.loaders.PlayListLoader;
 
 /**
  * A simple {@link Fragment} subclass.

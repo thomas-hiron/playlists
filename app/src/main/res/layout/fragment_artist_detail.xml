@@ -1,67 +1,130 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical"
-              tools:context="com.thomas.playlists.fragments.SongDetailFragment">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/border_bottom"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/artistDetailTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:text=""
-            android:textSize="20sp"/>
-
-    </RelativeLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.thomas.playlists.fragments.SongDetailFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/artistDetailLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/border_bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/artistDetailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:text=""
+                android:textSize="20sp"/>
+
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/artistDetailHotttnesss"
-            android:layout_width="wrap_content"
+            android:id="@+id/loadingArtistDetails"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"/>
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:text="@string/loading"/>
 
-        <TextView
-            android:id="@+id/albumsLabel"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/layoutArtistDetail"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/albums"
-            android:textSize="20sp"
-            android:layout_marginTop="25dp"/>
+            android:layout_marginEnd="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
 
-        <ListView
-            android:id="@+id/artistDetailAlbums"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:listSelector="@android:color/transparent"
-            android:cacheColorHint="@android:color/transparent">
+            <TextView
+                android:id="@+id/biographyLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/biography"
+                android:visibility="gone"
+                android:textSize="20sp"/>
 
-        </ListView>
+            <TextView
+                android:id="@+id/artistDetailBiography"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:text="@string/moreInfos"
+                android:layout_marginTop="25dp"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/artistDetailLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/artistDetailHotttnesss"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/artistDetailActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/imagesLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:layout_marginBottom="10dp"
+                android:text="@string/photos"
+                android:visibility="gone"
+                android:textSize="20sp"/>
+
+            <LinearLayout
+                android:id="@+id/artistDetailImages"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                </LinearLayout>
+
+            <TextView
+                android:id="@+id/albumsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/albums"
+                android:textSize="20sp"/>
+
+            <ListView
+                android:id="@+id/artistDetailAlbums"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:cacheColorHint="@android:color/transparent"
+                android:listSelector="@android:color/transparent">
+
+            </ListView>
+
+        </LinearLayout>
 
     </LinearLayout>
 
-</LinearLayout>
+</ScrollView>
