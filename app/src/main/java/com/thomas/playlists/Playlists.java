@@ -4,8 +4,10 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.thomas.playlists.api.EchoNestWrapper;
+import com.thomas.playlists.contentProvider.MainDatabaseHelper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
 import com.thomas.playlists.fragments.ArtistDetailFragment;
+import com.thomas.playlists.fragments.HomeFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
 import com.thomas.playlists.fragments.ShuffleFragment;
 import com.thomas.playlists.fragments.SongDetailFragment;
@@ -33,9 +35,14 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 
         /* Ajout de l'adapter au viewPager */
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        mViewPagerAdapter.add(new HomeFragment());
-        mViewPagerAdapter.add(new AddPlaylistFragment());
+        mViewPagerAdapter.add(new HomeFragment());
+//        mViewPagerAdapter.add(new AddPlaylistFragment());
         mViewPager.setAdapter(mViewPagerAdapter);
+
+        /* Test SQLite */
+        MainDatabaseHelper playlists_db = new MainDatabaseHelper(this, "playlists_db", null, 1);
+        playlists_db.addPlaylist();
+        playlists_db.getAllPlaylists();
 
         setContentView(mViewPager);
     }
