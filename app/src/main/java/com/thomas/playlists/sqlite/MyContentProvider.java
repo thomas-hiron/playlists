@@ -74,16 +74,16 @@ public class MyContentProvider extends ContentProvider
     protected static final String CREATE_TABLE_SONGS = "CREATE TABLE IF NOT EXISTS " + TABLE_SONGS + " " +
             "(" +
             SONGS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            SONGS_PLAYLISTS_ID + " INTEGER" +
-            SONGS_TITLE + " TEXT" +
-            SONGS_DURATION + " TEXT" +
-            SONGS_COVER + " TEXT" +
-            SONGS_DANCEABILITY + " INTEGER" +
-            SONGS_TEMPO + " INTEGER" +
-            SONGS_HOTTTNESSS + " INTEGER" +
-            SONGS_LOUDNESS + " INTEGER" +
-            SONGS_ARTIST_LOCATION + " TEXT" +
-            SONGS_ARTIST_HOTTTNESSS + " INTEGER" +
+            SONGS_PLAYLISTS_ID + " INTEGER," +
+            SONGS_TITLE + " TEXT," +
+            SONGS_DURATION + " TEXT," +
+            SONGS_COVER + " TEXT," +
+            SONGS_DANCEABILITY + " INTEGER," +
+            SONGS_TEMPO + " INTEGER," +
+            SONGS_HOTTTNESSS + " INTEGER," +
+            SONGS_LOUDNESS + " INTEGER," +
+            SONGS_ARTIST_LOCATION + " TEXT," +
+            SONGS_ARTIST_HOTTTNESSS + " INTEGER," +
             SONGS_ARTIST_ALBUMS + " TEXT" +
             ")";
 
@@ -123,6 +123,7 @@ public class MyContentProvider extends ContentProvider
             case SONGS:
 
                 queryBuilder.setTables(TABLE_SONGS);
+                queryBuilder.setProjectionMap(mPlaylistsMap);
 //                queryBuilder.appendWhere(ID + "=" + uri.getLastPathSegment());
 
                 break;

@@ -81,59 +81,26 @@ public class SongDetailFragment extends Fragment
             }
         });
 
-
-        /* La durée */
         try
         {
+            /* La durée */
             /* Formatage de la durée reçue en secondes vers mm:ss */
             Date date = new Date((long) (song.getDuration() * 1000));
             String formattedDate = new SimpleDateFormat("mm:ss").format(date);
 
             /* Mise à jour du champ texte */
             ((TextView) view.findViewById(R.id.songDetailDuration)).setText("Durée : " + formattedDate);
-        }
-        catch(EchoNestException e)
-        {
-            e.printStackTrace();
-        }
 
-
-        /* Danceability */
-        try
-        {
+            /* Danceabilité */
             ((TextView) view.findViewById(R.id.songDetailDanceability)).setText("Danceabilité : " + (int) (song.getDanceability() * 10) + "/10");
-        }
-        catch(EchoNestException e)
-        {
-            e.printStackTrace();
-        }
 
-
-        /* Tempo */
-        try
-        {
+            /* Tempo */
             ((TextView) view.findViewById(R.id.songDetailTempo)).setText("Tempo : " + (int) song.getTempo());
-        }
-        catch(EchoNestException e)
-        {
-            e.printStackTrace();
-        }
 
-
-        /* Hotttnesss */
-        try
-        {
+            /* Hotttnesss */
             ((TextView) view.findViewById(R.id.songDetailHotttnesss)).setText("Hotttnesss : " + (int) (song.getSongHotttnesss() * 100) + "%");
-        }
-        catch(EchoNestException e)
-        {
-            e.printStackTrace();
-        }
 
-
-        /* Loudness */
-        try
-        {
+            /* Loudness */
             ((TextView) view.findViewById(R.id.songDetailLoudness)).setText("Loudness : " + song.getLoudness() + "dB");
         }
         catch(EchoNestException e)

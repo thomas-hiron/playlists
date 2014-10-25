@@ -38,19 +38,6 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 //        mViewPagerAdapter.add(new AddPlaylistFragment());
         mViewPager.setAdapter(mViewPagerAdapter);
 
-        /* Test SQLite */
-//        MainDatabaseHelper playlists_db = new MainDatabaseHelper(this, "playlists_db", null, 1);
-
-        // Add a new birthday record
-//        ContentValues values = new ContentValues();
-//
-//        values.put(MyContentProvider.PLAYLISTS_TITLE, "Yeah ça marche !");
-//
-//        Uri uri = getContentResolver().insert(
-//                MyContentProvider.CONTENT_URI_PLAYLISTS, values);
-//
-//        Toast.makeText(getBaseContext(), uri.toString() + " inserted!", Toast.LENGTH_LONG).show();
-
         setContentView(mViewPager);
     }
 

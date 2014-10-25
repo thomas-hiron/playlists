@@ -64,29 +64,21 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
         /* Changement du titre */
         ((TextView) mView.findViewById(R.id.artistDetailTitle)).setText(song.getArtistName());
 
-
-        /* Location */
         try
         {
+            /* Location */
             ((TextView) mView.findViewById(R.id.artistDetailLocation)).setText(
                     "Location : " + song.getArtistLocation().getPlaceName()
             );
-        }
-        catch(EchoNestException e)
-        {
-            e.printStackTrace();
-        }
 
-
-        /* Hotttnesss */
-        try
-        {
+            /* Hotttnesss */
             ((TextView) mView.findViewById(R.id.artistDetailHotttnesss)).setText("Hotttnesss : " + (int) (song.getArtistHotttnesss() * 100) + "%");
         }
         catch(EchoNestException e)
         {
             e.printStackTrace();
         }
+
 
         /* Les albums */
         ArrayList<String> albums = new ArrayList<String>();

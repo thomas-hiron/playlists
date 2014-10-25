@@ -30,5 +30,8 @@
     <string name="photos">Photos</string>
     <string name="biography">Biographie</string>
     <string name="moreInfos">Informations supplémentaires</string>
+    <string name="playlistTitle">Titre de la playlist</string>
+    <string name="validate">Valider</string>
+    <string name="cancel">Annuler</string>
 
 </resources>
