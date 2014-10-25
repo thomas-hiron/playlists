@@ -6,21 +6,23 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.thomas.playlists.R;
+import com.thomas.playlists.adapters.PlaylistHomeAdapter;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.listeners.HomeButtonsListener;
 import com.thomas.playlists.sqlite.MyContentProvider;
 import com.thomas.playlists.sqlite.PlaylistItem;
-
-import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +40,7 @@ public class HomeFragment extends Fragment
     private OnHomeButtonClicked mListener = null;
 
     private HomeButtonsListener mHomeButtonsListener = null;
+    private PlaylistHomeAdapter mAdapter;
 
     public HomeFragment()
     {
@@ -56,13 +59,13 @@ public class HomeFragment extends Fragment
     {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
+        /* Instanciation de l'adapter */
+        mAdapter = new PlaylistHomeAdapter(getActivity());
+
         /* On détecte la présence de playlists */
         String URL = MyContentProvider.URL_PLAYLISTS;
         Uri playlistsUri = Uri.parse(URL);
         Cursor c = getActivity().getContentResolver().query(playlistsUri, null, null, null, null);
-
-        /* La liste des playlists */
-        ArrayList<PlaylistItem> playlists = new ArrayList<PlaylistItem>();
 
         if(c.moveToFirst())
         {
@@ -74,14 +77,30 @@ public class HomeFragment extends Fragment
                 playlistItem.setTitle(c.getString(c.getColumnIndex(MyContentProvider.PLAYLISTS_TITLE)));
 
                 /* Ajout à la liste */
-                playlists.add(playlistItem);
+                mAdapter.add(playlistItem);
             }
             while(c.moveToNext());
         }
 
         /* Si aucune, on affiche un message */
-        if(playlists.size() == 0)
+        if(mAdapter.getCount() == 0)
             this.addNoPlaylist(view);
+        /* On affiche la liste et on ajoute les events */
+        else
+        {
+            AbsListView mListView = (AbsListView) view.findViewById(R.id.listPlaylists);
+            mListView.setAdapter(mAdapter);
+
+            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+                {
+                    Log.v("test", "yeah yeah");
+//                    mListener.onPlaylistItemClicked(mAdapter.getItem(i));
+                }
+            });
+        }
 
         /* Récupération des boutons */
         Button addPlaylist = (Button) view.findViewById(R.id.addPlaylist);
