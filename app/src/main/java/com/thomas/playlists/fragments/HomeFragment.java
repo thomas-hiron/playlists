@@ -1,7 +1,9 @@
 package com.thomas.playlists.fragments;
 
 import android.app.Activity;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -15,6 +17,10 @@ import android.widget.TextView;
 import com.thomas.playlists.R;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.listeners.HomeButtonsListener;
+import com.thomas.playlists.sqlite.MyContentProvider;
+import com.thomas.playlists.sqlite.PlaylistItem;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,7 +37,7 @@ public class HomeFragment extends Fragment
 
     private OnHomeButtonClicked mListener = null;
 
-    private HomeButtonsListener homeButtonsListener = null;
+    private HomeButtonsListener mHomeButtonsListener = null;
 
     public HomeFragment()
     {
@@ -51,23 +57,43 @@ public class HomeFragment extends Fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
         /* On détecte la présence de playlists */
-//        boolean playlistPresent = false;
+        String URL = MyContentProvider.URL_PLAYLISTS;
+        Uri playlistsUri = Uri.parse(URL);
+        Cursor c = getActivity().getContentResolver().query(playlistsUri, null, null, null, null);
+
+        /* La liste des playlists */
+        ArrayList<PlaylistItem> playlists = new ArrayList<PlaylistItem>();
+
+        if(c.moveToFirst())
+        {
+            do
+            {
+                /* Création de l'objet */
+                PlaylistItem playlistItem = new PlaylistItem();
+                playlistItem.setId(Integer.parseInt(c.getString(c.getColumnIndex(MyContentProvider.PLAYLISTS_ID))));
+                playlistItem.setTitle(c.getString(c.getColumnIndex(MyContentProvider.PLAYLISTS_TITLE)));
+
+                /* Ajout à la liste */
+                playlists.add(playlistItem);
+            }
+            while(c.moveToNext());
+        }
 
         /* Si aucune, on affiche un message */
-        this.addNoPlaylist(view);
+        if(playlists.size() == 0)
+            this.addNoPlaylist(view);
 
         /* Récupération des boutons */
         Button addPlaylist = (Button) view.findViewById(R.id.addPlaylist);
         Button shufflePlaylist = (Button) view.findViewById(R.id.shufflePlaylist);
 
         /* Création du listener des boutons */
-        homeButtonsListener = new HomeButtonsListener(mListener);
+        mHomeButtonsListener = new HomeButtonsListener(mListener);
 
         /* Ajout des listener */
-        addPlaylist.setOnClickListener(homeButtonsListener);
-        shufflePlaylist.setOnClickListener(homeButtonsListener);
+        addPlaylist.setOnClickListener(mHomeButtonsListener);
+        shufflePlaylist.setOnClickListener(mHomeButtonsListener);
 
-        // Inflate the layout for this fragment
         return view;
     }
 

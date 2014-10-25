@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
 import com.thomas.playlists.api.EchoNestWrapper;
-import com.thomas.playlists.contentProvider.MainDatabaseHelper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
 import com.thomas.playlists.fragments.ArtistDetailFragment;
 import com.thomas.playlists.fragments.HomeFragment;
@@ -40,9 +39,17 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
         mViewPager.setAdapter(mViewPagerAdapter);
 
         /* Test SQLite */
-        MainDatabaseHelper playlists_db = new MainDatabaseHelper(this, "playlists_db", null, 1);
-        playlists_db.addPlaylist();
-        playlists_db.getAllPlaylists();
+//        MainDatabaseHelper playlists_db = new MainDatabaseHelper(this, "playlists_db", null, 1);
+
+        // Add a new birthday record
+//        ContentValues values = new ContentValues();
+//
+//        values.put(MyContentProvider.PLAYLISTS_TITLE, "Yeah ça marche !");
+//
+//        Uri uri = getContentResolver().insert(
+//                MyContentProvider.CONTENT_URI_PLAYLISTS, values);
+//
+//        Toast.makeText(getBaseContext(), uri.toString() + " inserted!", Toast.LENGTH_LONG).show();
 
         setContentView(mViewPager);
     }
