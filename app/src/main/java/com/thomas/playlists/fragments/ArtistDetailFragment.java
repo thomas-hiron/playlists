@@ -65,7 +65,7 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
         String artistName = song == null ? mSong.getArtistName() : song.getArtistName();
         double artistHotttnesss = 0;
         String artistLocation = "";
-        String[] artistAlbums  = mSong.getArtistAlbums();
+        String[] artistAlbums = mSong.getArtistAlbums();
 
         try
         {

@@ -9,7 +9,6 @@ import com.thomas.playlists.fragments.ArtistDetailFragment;
 import com.thomas.playlists.fragments.ExistingPlaylistFragment;
 import com.thomas.playlists.fragments.HomeFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
-import com.thomas.playlists.fragments.ShuffleFragment;
 import com.thomas.playlists.fragments.SongDetailFragment;
 import com.thomas.playlists.interfaces.OnArtistClicked;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
@@ -54,20 +53,33 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     {
         /* Ajout d'une nouvelle playlist */
         if(action.equals(HomeButtonsListener.ACTION_ADD_PLAYLIST))
+        {
             mViewPagerAdapter.add(new AddPlaylistFragment());
+
+            /* Mise à jour */
+            updateViewPager();
+        }
 
         /* Génération aléatoire d'une nouvelle playlist */
         else if(action.equals(HomeButtonsListener.ACTION_SHUFFLE_PLAYLIST))
-            mViewPagerAdapter.add(new ShuffleFragment());
+        {
+            /* Récupération de l'artiste */
+            ShufflePlaylist shufflePlaylist = new ShufflePlaylist();
+            String artistName = shufflePlaylist.getRandomArtistName(this);
 
-        /* Mise à jour */
-        updateViewPager();
+            /* Création des paramètres de la recherche */
+            PlaylistSearch playlistSearch = new PlaylistSearch();
+            playlistSearch.setArtistGenre(artistName);
+
+            /* Ajout du fragment */
+            onPlaylistAdded(playlistSearch);
+        }
     }
 
     /**
      * Au clic sur une playlist de la home
      *
-     * @param item
+     * @param playlistItem
      */
     @Override
     public void onPlaylistItemClicked(PlaylistItem playlistItem)

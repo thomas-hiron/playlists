@@ -112,7 +112,8 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="10dp"
                 android:hint="@string/minDanceability"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:maxLength="2"/>
 
             <EditText
                 android:id="@+id/editDateCreation"

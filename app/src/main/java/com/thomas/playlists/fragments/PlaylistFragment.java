@@ -125,7 +125,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
 
             /* Ajout du listener pour l'enregistrement de la playlist */
             Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);
-            saveButton.setOnClickListener(new SavePlaylistListener(playlist.getSongs()));
+            saveButton.setOnClickListener(new SavePlaylistListener(playlist.getSongs(), getActivity()));
         }
         /* Sinon affichage des erreurs */
         else

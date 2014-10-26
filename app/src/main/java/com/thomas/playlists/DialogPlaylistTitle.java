@@ -36,7 +36,7 @@ public class DialogPlaylistTitle
                 {
                     public void onClick(DialogInterface dialog, int id)
                     {
-                        savePlaylistListener.dialogValidated(input.getText().toString(), context);
+                        savePlaylistListener.dialogValidated(input.getText().toString());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener()

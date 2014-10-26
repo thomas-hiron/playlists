@@ -10,14 +10,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.PlaylistAdapter;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
+import com.thomas.playlists.listeners.SavePlaylistListener;
 import com.thomas.playlists.sqlite.MyContentProvider;
 import com.thomas.playlists.sqlite.PlaylistItem;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -57,6 +61,9 @@ public class ExistingPlaylistFragment extends Fragment
         Uri playlistsUri = Uri.parse(URL);
         Cursor c = getActivity().getContentResolver().query(playlistsUri, null, condition, null, null);
 
+        /* Tableau des sons */
+        ArrayList<PlaylistSong> playlistSongs = new ArrayList<PlaylistSong>();
+
         if(c.moveToFirst())
         {
             do
@@ -64,14 +71,14 @@ public class ExistingPlaylistFragment extends Fragment
                 /* Récupération des données */
                 String title = c.getString(c.getColumnIndex(MyContentProvider.SONGS_TITLE));
                 String cover = c.getString(c.getColumnIndex(MyContentProvider.SONGS_COVER));
-                double duration = Double.parseDouble(c.getString(c.getColumnIndex(MyContentProvider.SONGS_DURATION)));
-                double danceability = Double.parseDouble(c.getString(c.getColumnIndex(MyContentProvider.SONGS_DANCEABILITY)));
-                double tempo = Double.parseDouble(c.getString(c.getColumnIndex(MyContentProvider.SONGS_TEMPO)));
-                double hotttnesss = Double.parseDouble(c.getString(c.getColumnIndex(MyContentProvider.SONGS_HOTTTNESSS)));
-                double loudness = Double.parseDouble(c.getString(c.getColumnIndex(MyContentProvider.SONGS_LOUDNESS)));
+                double duration = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_DURATION));
+                double danceability = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_DANCEABILITY));
+                double tempo = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_TEMPO));
+                double hotttnesss = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_HOTTTNESSS));
+                double loudness = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_LOUDNESS));
                 String artistName = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_NAME));
                 String artistLocation = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_LOCATION));
-                double artistHotttnesss = Double.parseDouble(c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_HOTTTNESSS)));
+                double artistHotttnesss = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_HOTTTNESSS));
                 String[] artistAlbums = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_ALBUMS)).split("\\[azerty\\]");
 
                 PlaylistSong playlistSong = new PlaylistSong(null);
@@ -91,9 +98,13 @@ public class ExistingPlaylistFragment extends Fragment
                 playlistSong.setArtistHotttnesss(artistHotttnesss);
                 playlistSong.setArtistAlbums(artistAlbums);
 
-                mAdapter.add(playlistSong);
+                /* Ajout au tableau */
+                playlistSongs.add(playlistSong);
             }
             while(c.moveToNext());
+
+            /* Ajout à l'adapter */
+            mAdapter.addAll(playlistSongs);
         }
 
         /* Set the adapter */
@@ -111,6 +122,19 @@ public class ExistingPlaylistFragment extends Fragment
 
         /* Changement du titre ('Résultats') par celui de la playlist */
         ((TextView) view.findViewById(R.id.playlistResultsLabel)).setText(mPlaylistItem.getTitle());
+
+        /* Ajout du listener sur le bouton */
+        Button saveButton = (Button) view.findViewById(R.id.savePlaylist);
+        SavePlaylistListener savePlaylistListener = new SavePlaylistListener(
+                playlistSongs, getActivity(), saveButton, view.findViewById(R.id.playlistResultsLabel)
+        );
+        saveButton.setOnClickListener(savePlaylistListener);
+
+        /* Changement de l'icone favorite par trash */
+        saveButton.setBackgroundResource(R.drawable.trash);
+
+        /* Ajout de l'id de la playlist */
+        savePlaylistListener.setPlaylistId(playlistId);
 
         return view;
     }

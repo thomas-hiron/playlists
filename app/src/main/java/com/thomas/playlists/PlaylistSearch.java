@@ -75,7 +75,8 @@ public class PlaylistSearch
         {
             params.addArtist(mArtistGenre);
             params.setType(PlaylistParams.PlaylistType.ARTIST_RADIO);
-        } else
+        }
+        else
         {
             params.addGenre(mArtistGenre);
             params.setType(PlaylistParams.PlaylistType.GENRE_RADIO);

@@ -27,7 +27,7 @@ public class MyContentProvider extends ContentProvider
 
     /* Les champs de playlists */
     public static final String PLAYLISTS_ID = "id";
-    public static final String PLAYLISTS_TITLE = "TITLE";
+    public static final String PLAYLISTS_TITLE = "title";
 
     /* Les champs de songs */
     public static final String SONGS_ID = "id";
@@ -54,6 +54,7 @@ public class MyContentProvider extends ContentProvider
     private HashMap<String, String> mPlaylistsMap;
 
     private static final UriMatcher mUriMatcher;
+
     static
     {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -117,7 +118,7 @@ public class MyContentProvider extends ContentProvider
                 queryBuilder.setTables(TABLE_PLAYLISTS);
                 queryBuilder.setProjectionMap(mPlaylistsMap);
 
-                sort = PLAYLISTS_TITLE;
+                sortOrder = PLAYLISTS_TITLE;
 
                 break;
 
@@ -126,7 +127,6 @@ public class MyContentProvider extends ContentProvider
 
                 queryBuilder.setTables(TABLE_SONGS);
                 queryBuilder.setProjectionMap(mPlaylistsMap);
-//                queryBuilder.appendWhere(ID + "=" + uri.getLastPathSegment());
 
                 break;
 
@@ -136,7 +136,7 @@ public class MyContentProvider extends ContentProvider
         }
 
         /* Exécution */
-        Cursor cursor = queryBuilder.query(mDatabase, projection, selection, selectionArgs, null, null, sort);
+        Cursor cursor = queryBuilder.query(mDatabase, projection, selection, selectionArgs, null, null, sortOrder);
 
         /* register to watch a content URI for changes */
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
@@ -187,9 +187,31 @@ public class MyContentProvider extends ContentProvider
     }
 
     @Override
-    public int delete(Uri uri, String s, String[] strings)
+    public int delete(Uri uri, String selection, String[] selectionArgs)
     {
-        return 0;
+        int count = 0;
+
+        switch (mUriMatcher.match(uri))
+        {
+            case PLAYLISTS:
+
+                count = mDatabase.delete(TABLE_PLAYLISTS, selection, selectionArgs);
+
+                break;
+
+            case SONGS:
+
+                count = mDatabase.delete(TABLE_SONGS, selection, selectionArgs);
+
+                break;
+
+            default:
+                throw new IllegalArgumentException("Unsupported URI " + uri);
+        }
+
+        getContext().getContentResolver().notifyChange(uri, null);
+
+        return count;
     }
 
     @Override
