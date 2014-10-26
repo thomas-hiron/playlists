@@ -9,8 +9,20 @@ import com.echonest.api.v4.Song;
  */
 public class PlaylistSong
 {
-    private Song mSong;
-    private String mCover;
+    private Song mSong = null;
+    private String mCover = null;
+    private String mArtistName = null;
+    private String mTitle = null;
+
+    private double mLoudness = 0;
+    private double mDuration = 0;
+    private double mDanceability = 0;
+    private double mTempo = 0;
+    private double mHotttnesss = 0;
+
+    private String artistLocation;
+    private double artistHotttnesss;
+    private String[] artistAlbums = null;
 
     public PlaylistSong(Song song)
     {
@@ -30,5 +42,105 @@ public class PlaylistSong
     public String getCover()
     {
         return mCover;
+    }
+
+    public String getArtistName()
+    {
+        return mArtistName;
+    }
+
+    public void setArtistName(String artistName)
+    {
+        this.mArtistName = artistName;
+    }
+
+    public String getTitle()
+    {
+        return mTitle;
+    }
+
+    public void setTitle(String title)
+    {
+        this.mTitle = title;
+    }
+
+    public double getHotttnesss()
+    {
+        return mHotttnesss;
+    }
+
+    public void setHotttnesss(double hotttnesss)
+    {
+        this.mHotttnesss = hotttnesss;
+    }
+
+    public double getLoudness()
+    {
+        return mLoudness;
+    }
+
+    public void setLoudness(double loudness)
+    {
+        this.mLoudness = loudness;
+    }
+
+    public double getDuration()
+    {
+        return mDuration;
+    }
+
+    public void setDuration(double duration)
+    {
+        this.mDuration = duration;
+    }
+
+    public double getDanceability()
+    {
+        return mDanceability;
+    }
+
+    public void setDanceability(double danceability)
+    {
+        this.mDanceability = danceability;
+    }
+
+    public double getTempo()
+    {
+        return mTempo;
+    }
+
+    public void setTempo(double tempo)
+    {
+        this.mTempo = tempo;
+    }
+
+    public String getArtistLocation()
+    {
+        return artistLocation;
+    }
+
+    public void setArtistLocation(String artistLocation)
+    {
+        this.artistLocation = artistLocation;
+    }
+
+    public double getArtistHotttnesss()
+    {
+        return artistHotttnesss;
+    }
+
+    public void setArtistHotttnesss(double artistHotttnesss)
+    {
+        this.artistHotttnesss = artistHotttnesss;
+    }
+
+    public String[] getArtistAlbums()
+    {
+        return artistAlbums;
+    }
+
+    public void setArtistAlbums(String[] artistAlbums)
+    {
+        this.artistAlbums = artistAlbums;
     }
 }

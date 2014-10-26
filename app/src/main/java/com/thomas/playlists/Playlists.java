@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 import com.thomas.playlists.api.EchoNestWrapper;
 import com.thomas.playlists.fragments.AddPlaylistFragment;
 import com.thomas.playlists.fragments.ArtistDetailFragment;
+import com.thomas.playlists.fragments.ExistingPlaylistFragment;
 import com.thomas.playlists.fragments.HomeFragment;
 import com.thomas.playlists.fragments.PlaylistFragment;
 import com.thomas.playlists.fragments.ShuffleFragment;
@@ -15,6 +16,7 @@ import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.interfaces.OnPlaylistAdded;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
 import com.thomas.playlists.listeners.HomeButtonsListener;
+import com.thomas.playlists.sqlite.PlaylistItem;
 import com.thomas.playlists.viewPager.MyViewPager;
 import com.thomas.playlists.viewPager.ViewPagerAdapter;
 
@@ -38,13 +40,16 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 //        mViewPagerAdapter.add(new AddPlaylistFragment());
         mViewPager.setAdapter(mViewPagerAdapter);
 
+        /* Ajout de la clé à l'API */
+        EchoNestWrapper.setApiKey(Playlists.this);
+
         setContentView(mViewPager);
     }
 
-    @Override
     /**
      * Clique sur les boutons d'accueil (ajout ou playlist aléatoire)
      */
+    @Override
     public void onHomeButtonClicked(String action)
     {
         /* Ajout d'une nouvelle playlist */
@@ -59,12 +64,30 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
         updateViewPager();
     }
 
+    /**
+     * Au clic sur une playlist de la home
+     *
+     * @param item
+     */
     @Override
+    public void onPlaylistItemClicked(PlaylistItem playlistItem)
+    {
+        /* Création du fragment de playlist */
+        ExistingPlaylistFragment existingPlaylistFragment = new ExistingPlaylistFragment(playlistItem);
+
+        /* Ajout du nouveau fragment */
+        mViewPagerAdapter.add(existingPlaylistFragment);
+
+        /* Mise à jour */
+        updateViewPager();
+    }
+
     /**
      * Formulaire rempli
      *
      * @see com.thomas.playlists.interfaces.OnPlaylistAdded
      */
+    @Override
     public void onPlaylistAdded(PlaylistSearch playlistSearch)
     {
         /* Le fragment */
@@ -75,9 +98,6 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 
         /* Mise à jour */
         updateViewPager();
-
-        /* Chargement de la playlist via l'API */
-        EchoNestWrapper.setApiKey(Playlists.this);
 
         /* Chargement via le loader */
         playlistFragment.search(playlistSearch);

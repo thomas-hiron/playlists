@@ -39,6 +39,7 @@ public class MyContentProvider extends ContentProvider
     public static final String SONGS_TEMPO = "tempo";
     public static final String SONGS_HOTTTNESSS = "hotttnesss";
     public static final String SONGS_LOUDNESS = "loudness";
+    public static final String SONGS_ARTIST_NAME = "artist_name";
     public static final String SONGS_ARTIST_LOCATION = "artist_location";
     public static final String SONGS_ARTIST_HOTTTNESSS = "artist_hotttnesss";
     public static final String SONGS_ARTIST_ALBUMS = "artist_albums";
@@ -82,6 +83,7 @@ public class MyContentProvider extends ContentProvider
             SONGS_TEMPO + " INTEGER," +
             SONGS_HOTTTNESSS + " INTEGER," +
             SONGS_LOUDNESS + " INTEGER," +
+            SONGS_ARTIST_NAME + " TEXT," +
             SONGS_ARTIST_LOCATION + " TEXT," +
             SONGS_ARTIST_HOTTTNESSS + " INTEGER," +
             SONGS_ARTIST_ALBUMS + " TEXT" +

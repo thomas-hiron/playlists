@@ -6,7 +6,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -88,16 +87,15 @@ public class HomeFragment extends Fragment
         /* On affiche la liste et on ajoute les events */
         else
         {
-            AbsListView mListView = (AbsListView) view.findViewById(R.id.listPlaylists);
-            mListView.setAdapter(mAdapter);
+            AbsListView listView = (AbsListView) view.findViewById(R.id.listPlaylists);
+            listView.setAdapter(mAdapter);
 
-            mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
             {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
                 {
-                    Log.v("test", "yeah yeah");
-//                    mListener.onPlaylistItemClicked(mAdapter.getItem(i));
+                    mListener.onPlaylistItemClicked(mAdapter.getItem(i));
                 }
             });
         }

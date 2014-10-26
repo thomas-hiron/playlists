@@ -65,7 +65,7 @@ public class AddPlaylistListener implements View.OnClickListener
         RadioGroup rgArtistGenre = (RadioGroup) mView.findViewById(R.id.radioArtistGenre);
         int radioCheckedId = rgArtistGenre.getCheckedRadioButtonId();
 
-        /* On set si ou artist */
+        /* On set si genre ou artist */
         playlistSearch.isArtist(radioCheckedId == R.id.radioArtist);
 
         /* Le nombre de résultats */

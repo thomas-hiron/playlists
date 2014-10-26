@@ -1,5 +1,7 @@
 package com.thomas.playlists.interfaces;
 
+import com.thomas.playlists.sqlite.PlaylistItem;
+
 /**
  * Created by ThomasHiron on 16/10/2014.
  * <p/>
@@ -15,4 +17,6 @@ package com.thomas.playlists.interfaces;
 public interface OnHomeButtonClicked
 {
     public void onHomeButtonClicked(String s);
+
+    public void onPlaylistItemClicked(PlaylistItem item);
 }

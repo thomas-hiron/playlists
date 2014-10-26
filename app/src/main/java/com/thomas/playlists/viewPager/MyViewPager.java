@@ -11,7 +11,7 @@ import android.view.MotionEvent;
  */
 public class MyViewPager extends ViewPager
 {
-    private boolean removeLast = false;
+    private boolean mRemoveLast = false;
 
     public MyViewPager(Context context)
     {
@@ -36,7 +36,7 @@ public class MyViewPager extends ViewPager
             public void onPageScrollStateChanged(int i)
             {
                 /* Si page à l'arrêt et on supprime le dernier */
-                if(i == SCROLL_STATE_IDLE && removeLast)
+                if(i == SCROLL_STATE_IDLE && mRemoveLast)
                 {
                     /* Adapter */
                     ViewPagerAdapter viewPagerAdapter = (ViewPagerAdapter) getAdapter();
@@ -45,7 +45,7 @@ public class MyViewPager extends ViewPager
                     viewPagerAdapter.removeLast().notifyDataSetChanged();
 
                     /* Pour ne pas repasser dans la boucle */
-                    removeLast = false;
+                    mRemoveLast = false;
                 }
             }
         });
@@ -59,6 +59,6 @@ public class MyViewPager extends ViewPager
 
     public void setRemoveLast(boolean removeLast)
     {
-        this.removeLast = removeLast;
+        this.mRemoveLast = removeLast;
     }
 }

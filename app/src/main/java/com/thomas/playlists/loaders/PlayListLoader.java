@@ -16,7 +16,7 @@ import com.thomas.playlists.exceptions.EchoNestWrapperException;
 public class PlayListLoader extends AsyncTaskLoader<Playlist>
 {
     private Playlist mPlaylist = null;
-    private PlaylistSearch playlistSearch = null;
+    private PlaylistSearch mPlaylistSearch = null;
 
     public PlayListLoader(Context context)
     {
@@ -29,7 +29,7 @@ public class PlayListLoader extends AsyncTaskLoader<Playlist>
         try
         {
             /* Récupération des params */
-            PlaylistParams params = playlistSearch.getParams();
+            PlaylistParams params = mPlaylistSearch.getParams();
 
             /* Requête à l'API */
             mPlaylist = EchoNestWrapper.getInstance().createStaticPlaylist(params);
@@ -59,6 +59,6 @@ public class PlayListLoader extends AsyncTaskLoader<Playlist>
 
     public void setPlaylistSearch(PlaylistSearch pPlaylistSearch)
     {
-        playlistSearch = pPlaylistSearch;
+        mPlaylistSearch = pPlaylistSearch;
     }
 }

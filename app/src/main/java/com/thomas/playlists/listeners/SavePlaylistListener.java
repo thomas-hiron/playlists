@@ -3,7 +3,6 @@ package com.thomas.playlists.listeners;
 import android.content.ContentValues;
 import android.content.Context;
 import android.net.Uri;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
 
 import com.echonest.api.v4.EchoNestException;
@@ -12,9 +11,7 @@ import com.thomas.playlists.DialogPlaylistTitle;
 import com.thomas.playlists.sqlite.MainDatabaseHelper;
 import com.thomas.playlists.sqlite.MyContentProvider;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -23,13 +20,9 @@ import java.util.List;
 public class SavePlaylistListener implements View.OnClickListener
 {
     private List<Song> mSongs;
-    private FragmentManager mPlaylistFragmentManager;
-    private final String DIALOG_TAG = "TITLE";
 
-
-    public SavePlaylistListener(FragmentManager playlistFragment, List<Song> songs)
+    public SavePlaylistListener(List<Song> songs)
     {
-        mPlaylistFragmentManager = playlistFragment;
         mSongs = songs;
     }
 
@@ -53,7 +46,7 @@ public class SavePlaylistListener implements View.OnClickListener
 
         /* Les valeurs à insérer */
         ContentValues playlistValues = new ContentValues();
-        playlistValues.put(MyContentProvider.PLAYLISTS_TITLE, title);
+        playlistValues.put(MyContentProvider.PLAYLISTS_TITLE, title.substring(0, 1).toUpperCase()+ title.substring(1).toLowerCase());
 
         /* Insertion */
         Uri uri = context.getContentResolver().insert(MyContentProvider.CONTENT_URI_PLAYLISTS, playlistValues);
@@ -70,22 +63,18 @@ public class SavePlaylistListener implements View.OnClickListener
 
             /* Ajout des valeurs */
             songValues.put(MyContentProvider.SONGS_PLAYLISTS_ID, playlistId);
-            songValues.put(MyContentProvider.SONGS_TITLE, "tests de ouf avec un texte plus long que le titre du morceau !!!");
+            songValues.put(MyContentProvider.SONGS_TITLE, song.getTitle());
+            songValues.put(MyContentProvider.SONGS_ARTIST_NAME, song.getArtistName());
 
             try
             {
-                /* La durée */
-                /* Formatage de la durée reçue en secondes vers mm:ss */
-                Date date = new Date((long) (song.getDuration() * 1000));
-                String formattedDate = new SimpleDateFormat("mm:ss").format(date);
-                songValues.put(MyContentProvider.SONGS_DURATION, formattedDate);
-
-                songValues.put(MyContentProvider.SONGS_DANCEABILITY, (int) (song.getDanceability() * 10));
-                songValues.put(MyContentProvider.SONGS_TEMPO, (int) (song.getTempo()));
-                songValues.put(MyContentProvider.SONGS_HOTTTNESSS, (int) (song.getSongHotttnesss() * 100));
-                songValues.put(MyContentProvider.SONGS_LOUDNESS, (int) (song.getLoudness()));
+                songValues.put(MyContentProvider.SONGS_DURATION, song.getDuration());
+                songValues.put(MyContentProvider.SONGS_DANCEABILITY, song.getDanceability());
+                songValues.put(MyContentProvider.SONGS_TEMPO, song.getTempo());
+                songValues.put(MyContentProvider.SONGS_HOTTTNESSS, song.getSongHotttnesss());
+                songValues.put(MyContentProvider.SONGS_LOUDNESS, song.getLoudness());
                 songValues.put(MyContentProvider.SONGS_ARTIST_LOCATION, song.getArtistLocation().getPlaceName());
-                songValues.put(MyContentProvider.SONGS_ARTIST_HOTTTNESSS, (int) (song.getArtistHotttnesss()));
+                songValues.put(MyContentProvider.SONGS_ARTIST_HOTTTNESSS, song.getArtistHotttnesss());
             }
             catch(EchoNestException e)
             {

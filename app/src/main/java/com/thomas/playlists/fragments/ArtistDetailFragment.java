@@ -38,8 +38,8 @@ import java.util.List;
 public class ArtistDetailFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<Artist>>
 {
     private PlaylistSong mSong;
-    private static int ARTIST_LOADER_ID = 2;
     private View mView;
+    private static int ARTIST_LOADER_ID = 2;
 
     public ArtistDetailFragment(PlaylistSong song)
     {
@@ -61,50 +61,67 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
         /* Le son de l'API */
         Song song = mSong.getSong();
 
-        /* Changement du titre */
-        ((TextView) mView.findViewById(R.id.artistDetailTitle)).setText(song.getArtistName());
+        /* Les variables */
+        String artistName = song == null ? mSong.getArtistName() : song.getArtistName();
+        double artistHotttnesss = 0;
+        String artistLocation = "";
+        String[] artistAlbums  = mSong.getArtistAlbums();
 
         try
         {
-            /* Location */
-            ((TextView) mView.findViewById(R.id.artistDetailLocation)).setText(
-                    "Location : " + song.getArtistLocation().getPlaceName()
-            );
-
-            /* Hotttnesss */
-            ((TextView) mView.findViewById(R.id.artistDetailHotttnesss)).setText("Hotttnesss : " + (int) (song.getArtistHotttnesss() * 100) + "%");
+            artistHotttnesss = song == null ? mSong.getArtistHotttnesss() : song.getArtistHotttnesss();
+            artistLocation = song == null ? mSong.getArtistLocation() : song.getArtistLocation().getPlaceName();
         }
         catch(EchoNestException e)
         {
             e.printStackTrace();
         }
 
+        /* Changement du titre */
+        ((TextView) mView.findViewById(R.id.artistDetailTitle)).setText(artistName);
+
+        /* Location */
+        ((TextView) mView.findViewById(R.id.artistDetailLocation)).setText("Location : " + artistLocation);
+
+        /* Hotttnesss */
+        ((TextView) mView.findViewById(R.id.artistDetailHotttnesss)).setText("Hotttnesss : " + (int) (artistHotttnesss * 100) + "%");
+
 
         /* Les albums */
         ArrayList<String> albums = new ArrayList<String>();
-        String album = "";
 
-        try
+        /* Si playlist enregistrée */
+        if(artistAlbums != null)
         {
-            /* Compteur */
-            int cpt = 0;
-
-            /*
-             * Lorsque le compteur aura dépassé la taille du tableau, une exception sera levée
-             */
-            while(true)
-            {
-                album = song.getString("tracks[" + cpt + "].album_name");
-
-                if(album != null && albums.indexOf(album) == -1)
-                    albums.add(album);
-
-                ++cpt;
-            }
+            for(String album : artistAlbums)
+                albums.add(album);
         }
-        catch(IndexOutOfBoundsException e)
+        else
         {
-            e.printStackTrace();
+            String album = "";
+
+            try
+            {
+                /* Compteur */
+                int cpt = 0;
+
+                /*
+                 * Lorsque le compteur aura dépassé la taille du tableau, une exception sera levée
+                 */
+                while(true)
+                {
+                    album = song.getString("tracks[" + cpt + "].album_name");
+
+                    if(album != null && albums.indexOf(album) == -1)
+                        albums.add(album);
+
+                    ++cpt;
+                }
+            }
+            catch(IndexOutOfBoundsException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         /* La listView */
@@ -116,6 +133,7 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent)
             {
+                /* Pour ne pas scroller dans la vue */
                 view.getParent().requestDisallowInterceptTouchEvent(true);
                 return false;
             }
@@ -145,8 +163,11 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
     @Override
     public Loader<List<Artist>> onCreateLoader(int i, Bundle bundle)
     {
+        /* Le son */
+        Song song = mSong.getSong();
+
         /* Déclaration et initialisation du loader */
-        ArtistLoader loader = new ArtistLoader(getActivity(), mSong.getSong().getArtistName());
+        ArtistLoader loader = new ArtistLoader(getActivity(), song == null ? mSong.getArtistName() : song.getArtistName());
 
         return loader;
     }

@@ -46,32 +46,40 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
         PlaylistSong playlistSong = getItem(position);
         Song song = playlistSong.getSong();
 
+        /* Initialisation des variables */
+        String artistName = song == null ? playlistSong.getArtistName() : song.getArtistName();
+        String title = song == null ? playlistSong.getTitle() : song.getTitle();
+
         /* L'image de l'artiste */
-        String cover = "";
+        String cover = playlistSong.getCover();
 
-        try
+        /* Si résultat venant de l'api, on n'a pas le cover */
+        if(song != null)
         {
-            /* Compteur */
-            int cpt = 0;
+            try
+            {
+                /* Compteur */
+                int cpt = 0;
 
-            /*
-             * Tant qu'on n'a pas trouvé d'image
-             * Lorsque le compteur aura dépassé la taille du tableau, une exception sera levée
-             */
-            while((cover = song.getString("tracks[" + cpt + "].release_image")) == null)
-                ++cpt;
-        }
-        catch(IndexOutOfBoundsException e)
-        {
-            e.printStackTrace();
+                /*
+                 * Tant qu'on n'a pas trouvé d'image
+                 * Lorsque le compteur aura dépassé la taille du tableau, une exception sera levée
+                 */
+                while((cover = song.getString("tracks[" + cpt + "].release_image")) == null)
+                    ++cpt;
+            }
+            catch(IndexOutOfBoundsException e)
+            {
+                e.printStackTrace();
+            }
         }
 
         /* Modification des textes des textView */
-        ((TextView) view.findViewById(R.id.song_artist_name)).setText(song.getArtistName());
-        ((TextView) view.findViewById(R.id.song_title)).setText(song.getTitle());
+        ((TextView) view.findViewById(R.id.songArtistName)).setText(artistName);
+        ((TextView) view.findViewById(R.id.songTitle)).setText(title);
 
         /* Suppression du chargement */
-        ((View) parent.getParent()).findViewById(R.id.loading_results).setVisibility(View.GONE);
+        ((View) parent.getParent()).findViewById(R.id.loadingResults).setVisibility(View.GONE);
 
         /* L'image */
         ImageView imageView = (ImageView) view.findViewById(R.id.cover);

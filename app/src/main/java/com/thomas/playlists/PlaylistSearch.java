@@ -12,15 +12,15 @@ import java.util.ArrayList;
 public class PlaylistSearch
 {
     /* Les données de la requête */
-    private boolean isArtist; /* Rechercher dans les artistes ou les genres */
-    private String artistGenre; /* La requête tapée (obligatoire) */
-    private int nbResults;
-    private float danceability;
-    private int dateCreation;
-    private int tempo;
+    private boolean mIsArtist; /* Rechercher dans les artistes ou les genres */
+    private String mArtistGenre; /* La requête tapée (obligatoire) */
+    private int mNbResults;
+    private float mDanceability;
+    private int mDateCreation;
+    private int mTempo;
 
     /* Les checkboxs */
-    private ArrayList<String> musicTypes;
+    private ArrayList<String> mMusicTypes;
 
     /**
      * Constructeur
@@ -28,13 +28,13 @@ public class PlaylistSearch
     public PlaylistSearch()
     {
         /* Initialisation des variables */
-        isArtist = true;
-        artistGenre = "Jimi Hendrix";
-        nbResults = 0;
-        danceability = 0;
-        dateCreation = 0;
-        tempo = 0;
-        musicTypes = new ArrayList<String>();
+        mIsArtist = true;
+        mArtistGenre = "Jimi Hendrix";
+        mNbResults = 0;
+        mDanceability = 0;
+        mDateCreation = 0;
+        mTempo = 0;
+        mMusicTypes = new ArrayList<String>();
     }
 
     /**
@@ -45,19 +45,19 @@ public class PlaylistSearch
         PlaylistParams params = new PlaylistParams();
 
         /* La danceabilité et le tempo min */
-        params.setMinDanceability(danceability);
-        params.setMinTempo(tempo);
+        params.setMinDanceability(mDanceability);
+        params.setMinTempo(mTempo);
 
         /* Le nombre de résultats si != 0 */
-        if(nbResults != 0)
-            params.setResults(nbResults);
+        if(mNbResults != 0)
+            params.setResults(mNbResults);
 
         /* La date de création min (année) si != 0 */
-        if(dateCreation != 0)
-            params.setArtistStartYearAfter(dateCreation);
+        if(mDateCreation != 0)
+            params.setArtistStartYearAfter(mDateCreation);
 
         /* Les types de musique (live, studio,...) */
-        for(String s : musicTypes)
+        for(String s : mMusicTypes)
             params.addStyle(s);
 
         params.includeArtistHotttnesss();
@@ -71,57 +71,58 @@ public class PlaylistSearch
         params.includeTracks();
 
         /* On renseigne si artiste ou genre et le type */
-        if(isArtist)
+        if(mIsArtist)
         {
-            params.addArtist(artistGenre);
+            params.addArtist(mArtistGenre);
             params.setType(PlaylistParams.PlaylistType.ARTIST_RADIO);
         } else
         {
-            params.addGenre(artistGenre);
+            params.addGenre(mArtistGenre);
             params.setType(PlaylistParams.PlaylistType.GENRE_RADIO);
         }
 
         return params;
     }
 
-    public void isArtist(boolean isArtist)
-    {
-        this.isArtist = isArtist;
-    }
 
     public void setArtistGenre(String artistGenre)
     {
-        this.artistGenre = artistGenre;
+        this.mArtistGenre = artistGenre;
     }
 
     public void setNbResults(int nbResults)
     {
-        this.nbResults = nbResults;
+        this.mNbResults = nbResults;
     }
 
     public void setDanceability(float danceability)
     {
-        this.danceability = danceability;
+        this.mDanceability = danceability;
     }
 
     public void setDateCreation(int dateCreation)
     {
-        this.dateCreation = dateCreation;
+        this.mDateCreation = dateCreation;
     }
 
     public void setTempo(int tempo)
     {
-        this.tempo = tempo;
+        this.mTempo = tempo;
     }
 
     @Override
     public String toString()
     {
-        return "isArtist : " + isArtist;
+        return "isArtist : " + mIsArtist;
     }
 
     public void setMusicTypes(ArrayList<String> musicTypes)
     {
-        this.musicTypes = musicTypes;
+        this.mMusicTypes = musicTypes;
+    }
+
+    public void isArtist(boolean b)
+    {
+        mIsArtist = b;
     }
 }

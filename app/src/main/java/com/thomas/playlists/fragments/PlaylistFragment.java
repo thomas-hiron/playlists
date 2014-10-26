@@ -59,7 +59,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         View view = inflater.inflate(R.layout.fragment_playlist_results, container, false);
 
         // Set the adapter
-        AbsListView mListView = (AbsListView) view.findViewById(android.R.id.list);
+        AbsListView mListView = (AbsListView) view.findViewById(R.id.listPlaylistResults);
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -125,7 +125,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
 
             /* Ajout du listener pour l'enregistrement de la playlist */
             Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);
-            saveButton.setOnClickListener(new SavePlaylistListener(getFragmentManager(), playlist.getSongs()));
+            saveButton.setOnClickListener(new SavePlaylistListener(playlist.getSongs()));
         }
         /* Sinon affichage des erreurs */
         else

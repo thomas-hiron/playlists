@@ -49,8 +49,31 @@ public class SongDetailFragment extends Fragment
         /* Le son d'EchoNest */
         Song song = mSong.getSong();
 
+        /* Initialisation des variables */
+        boolean songIsNull = song == null;
+        String title = songIsNull ? mSong.getTitle() : song.getTitle();
+        String artistName = songIsNull ? mSong.getArtistName() : song.getArtistName();
+        double loudness = 0;
+        double duration = 0;
+        double danceability = 0;
+        double tempo = 0;
+        double hotttnesss = 0;
+
+        try
+        {
+            duration = songIsNull ? mSong.getDuration() : song.getDuration();
+            danceability = songIsNull ? mSong.getDanceability() : song.getDanceability();
+            tempo = songIsNull ? mSong.getTempo() : song.getTempo();
+            hotttnesss = songIsNull ? mSong.getHotttnesss() : song.getSongHotttnesss();
+            loudness = songIsNull ? mSong.getLoudness() : song.getLoudness();
+        }
+        catch(EchoNestException e)
+        {
+            e.printStackTrace();
+        }
+
         /* Ajout du titre du bandeau */
-        ((TextView) view.findViewById(R.id.songDetailTitle)).setText(song.getTitle());
+        ((TextView) view.findViewById(R.id.songDetailTitle)).setText(title);
 
 
         /* L'image et la source */
@@ -66,7 +89,7 @@ public class SongDetailFragment extends Fragment
 
         /* Ajout de l'artiste */
         TextView artist = (TextView) view.findViewById(R.id.songDetailArtist);
-        artist.setText(song.getArtistName());
+        artist.setText(artistName);
 
         /* Ajout de l'italic pour supposer le clic */
         artist.setPaintFlags(artist.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
@@ -81,32 +104,25 @@ public class SongDetailFragment extends Fragment
             }
         });
 
-        try
-        {
-            /* La durée */
-            /* Formatage de la durée reçue en secondes vers mm:ss */
-            Date date = new Date((long) (song.getDuration() * 1000));
-            String formattedDate = new SimpleDateFormat("mm:ss").format(date);
+        /* La durée */
+        /* Formatage de la durée reçue en secondes vers mm:ss */
+        Date date = new Date((long) (duration * 1000));
+        String formattedDate = new SimpleDateFormat("mm:ss").format(date);
 
-            /* Mise à jour du champ texte */
-            ((TextView) view.findViewById(R.id.songDetailDuration)).setText("Durée : " + formattedDate);
+        /* Mise à jour du champ texte */
+        ((TextView) view.findViewById(R.id.songDetailDuration)).setText("Durée : " + formattedDate);
 
-            /* Danceabilité */
-            ((TextView) view.findViewById(R.id.songDetailDanceability)).setText("Danceabilité : " + (int) (song.getDanceability() * 10) + "/10");
+        /* Danceabilité */
+        ((TextView) view.findViewById(R.id.songDetailDanceability)).setText("Danceabilité : " + (int) (danceability * 10) + "/10");
 
-            /* Tempo */
-            ((TextView) view.findViewById(R.id.songDetailTempo)).setText("Tempo : " + (int) song.getTempo());
+        /* Tempo */
+        ((TextView) view.findViewById(R.id.songDetailTempo)).setText("Tempo : " + (int) tempo);
 
-            /* Hotttnesss */
-            ((TextView) view.findViewById(R.id.songDetailHotttnesss)).setText("Hotttnesss : " + (int) (song.getSongHotttnesss() * 100) + "%");
+        /* Hotttnesss */
+        ((TextView) view.findViewById(R.id.songDetailHotttnesss)).setText("Hotttnesss : " + (int) (hotttnesss * 100) + "%");
 
-            /* Loudness */
-            ((TextView) view.findViewById(R.id.songDetailLoudness)).setText("Loudness : " + song.getLoudness() + "dB");
-        }
-        catch(EchoNestException e)
-        {
-            e.printStackTrace();
-        }
+        /* Loudness */
+        ((TextView) view.findViewById(R.id.songDetailLoudness)).setText("Loudness : " + (int) loudness + "dB");
 
         /* Retour de la vue */
         return view;
