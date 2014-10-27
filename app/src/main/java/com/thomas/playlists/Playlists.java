@@ -80,7 +80,7 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     /**
      * Au clic sur une playlist de la home
      *
-     * @param playlistItem
+     * @param playlistItem L'item cliqué
      */
     @Override
     public void onPlaylistItemClicked(PlaylistItem playlistItem)
@@ -122,7 +122,7 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     /**
      * Un item d'une playlist cliqué
      *
-     * @param song
+     * @param song Le morceau cliqué
      */
     @Override
     public void onPlaylistItemClicked(PlaylistSong song)
@@ -140,7 +140,7 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
     /**
      * Au clic sur un artiste de la vue détaillée
      *
-     * @param song
+     * @param song Le son qui contient l'artiste cliqué
      */
     @Override
     public void onArtistClicked(PlaylistSong song)

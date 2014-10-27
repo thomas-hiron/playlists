@@ -8,6 +8,8 @@ import com.thomas.playlists.exceptions.EchoNestWrapperException;
 
 /**
  * Created by ThomasHiron on 14/10/2014.
+ *
+ * Classe perso qui renvoie une instance d'EchoNest
  */
 public class EchoNestWrapper
 {
@@ -35,27 +37,4 @@ public class EchoNestWrapper
         /* Retour de l'instance */
         return mInstance;
     }
-
-//    public static Playlist getArtistRadio(int results, String artist) throws EchoNestWrapperException, EchoNestException
-//    {
-//        PlaylistParams params = new PlaylistParams();
-//
-//        params.includeArtistFamiliarity();
-//        params.includeArtistHotttnesss();
-//
-//        params.addIDSpace("7digital-US");
-//        params.addIDSpace("spotify-WW");
-//        params.includeTracks();
-//
-//        params.addArtist(artist);
-//        params.setType(PlaylistParams.PlaylistType.ARTIST_RADIO);
-//
-//        params.setResults(results);
-//
-////        Playlist playlist = getInstance().createStaticPlaylist(params);
-////
-////        return playlist;
-//
-//        return null;
-//    }
 }

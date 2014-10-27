@@ -12,6 +12,8 @@ import com.thomas.playlists.exceptions.EchoNestWrapperException;
 
 /**
  * Created by ThomasHiron on 14/10/2014.
+ *
+ * Chargement d'une playlist
  */
 public class PlayListLoader extends AsyncTaskLoader<Playlist>
 {

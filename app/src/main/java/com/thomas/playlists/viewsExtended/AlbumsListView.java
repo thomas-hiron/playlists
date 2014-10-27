@@ -7,6 +7,8 @@ import android.widget.ListView;
 
 /**
  * Created by ThomasHiron on 27/10/2014.
+ *
+ * GridView pour les albums qui affiche tout
  */
 public class AlbumsListView extends ListView
 {

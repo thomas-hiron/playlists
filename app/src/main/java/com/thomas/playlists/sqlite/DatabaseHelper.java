@@ -6,16 +6,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 /**
  * Created by ThomasHiron on 24/10/2014.
+ *
+ * Exécute les requêtes
  */
 public class DatabaseHelper extends SQLiteOpenHelper
 {
     /**
      * Constructeur
      *
-     * @param context
-     * @param name
-     * @param factory
-     * @param version
+     * @param context Le contexte
      */
     public DatabaseHelper(Context context)
     {

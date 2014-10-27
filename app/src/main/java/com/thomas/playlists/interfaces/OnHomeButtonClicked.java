@@ -4,19 +4,22 @@ import com.thomas.playlists.sqlite.PlaylistItem;
 
 /**
  * Created by ThomasHiron on 16/10/2014.
- * <p/>
- * This interface must be implemented by activities that contain this
- * fragment to allow an interaction in this fragment to be communicated
- * to the activity and potentially other fragments contained in that
- * activity.
- * <p/>
- * See the Android Training lesson <a href=
- * "http://developer.android.com/training/basics/fragments/communicating.html"
- * >Communicating with Other Fragments</a> for more information.
+ *
+ * Les clics sur la home
  */
 public interface OnHomeButtonClicked
 {
+    /**
+     * Au clic sur les boutons d'ajout de playlist ou de playlist aléatoire
+     *
+     * @param s L'action effectuée
+     */
     public void onHomeButtonClicked(String s);
 
+    /**
+     * Au clic sur une playlist enregistrée
+     *
+     * @param item La playlist cliquée
+     */
     public void onPlaylistItemClicked(PlaylistItem item);
 }

@@ -19,6 +19,8 @@ import static com.thomas.playlists.R.id.editMinDanceability;
 
 /**
  * Created by ThomasHiron on 20/10/2014.
+ *
+ * Validation du formulaire
  */
 public class AddPlaylistListener implements View.OnClickListener
 {

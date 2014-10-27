@@ -4,12 +4,11 @@ package com.thomas.playlists;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.support.v4.app.Fragment;
 
 import com.thomas.playlists.sqlite.ContentProvider;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Objet qui permet d'obtenir un artiste aléatoirement pour effectuer une requête
  */
 public class ShufflePlaylist
 {
@@ -24,7 +23,7 @@ public class ShufflePlaylist
         Cursor c = context.getContentResolver().query(playlistsUri, null, null, null, "RANDOM()");
 
         /* Le nom de l'artiste */
-        String artistName = "";
+        String artistName;
 
         /* S'il y a des insertions */
         if(c.moveToFirst())

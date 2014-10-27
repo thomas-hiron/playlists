@@ -7,6 +7,8 @@ import android.widget.GridView;
 
 /**
  * Created by ThomasHiron on 27/10/2014.
+ *
+ * GridView pour les images de l'artiste qui affiche tout
  */
 public class ImagesGridView extends GridView
 {

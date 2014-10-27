@@ -10,6 +10,8 @@ import com.thomas.playlists.listeners.SavePlaylistListener;
 
 /**
  * Created by ThomasHiron on 25/10/2014.
+ *
+ * Affiche d'une alerte pour saisir le nom de la playlist
  */
 public class DialogPlaylistTitle
 {

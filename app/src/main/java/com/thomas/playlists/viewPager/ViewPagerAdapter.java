@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 /**
  * Created by ThomasHiron on 16/10/2014.
+ *
+ * Vue pager perso
  */
 public class ViewPagerAdapter extends FragmentStatePagerAdapter
 {
@@ -23,7 +25,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     /**
      * Ajoute une vue au tableau
      *
-     * @param fragment
+     * @param fragment Le fragment à ajouter
      */
     public void add(Fragment fragment)
     {

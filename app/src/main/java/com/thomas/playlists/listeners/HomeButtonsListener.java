@@ -8,6 +8,8 @@ import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 
 /**
  * Created by ThomasHiron on 16/10/2014.
+ *
+ * Au clic sur Ajouter playlist ou Playlist aléatoire
  */
 public class HomeButtonsListener implements View.OnClickListener
 {

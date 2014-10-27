@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * Created by ThomasHiron on 22/10/2014.
+ *
+ * Chargement de l'artiste du morceau
  */
 public class ArtistLoader extends AsyncTaskLoader<List<Artist>>
 {

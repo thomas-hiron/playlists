@@ -11,6 +11,8 @@ import com.thomas.playlists.R;
 
 /**
  * Created by ThomasHiron on 21/10/2014.
+ *
+ * Adapter pour la liste d'albums d'un artiste
  */
 public class AlbumsAdapter extends ArrayAdapter<String>
 {

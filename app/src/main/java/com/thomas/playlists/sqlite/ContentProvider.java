@@ -9,10 +9,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import java.util.HashMap;
-
 /**
  * Created by ThomasHiron on 24/10/2014.
+ *
+ * Interagit avec le DatabaseHelper et construit les requêtes
  */
 public class ContentProvider extends android.content.ContentProvider
 {
@@ -50,10 +50,7 @@ public class ContentProvider extends android.content.ContentProvider
     /* L'helper sqlite */
     DatabaseHelper mDBHelper;
 
-    private HashMap<String, String> mPlaylistsMap;
-
     private static final UriMatcher mUriMatcher;
-
     static
     {
         mUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
@@ -105,9 +102,6 @@ public class ContentProvider extends android.content.ContentProvider
         /* Le constructeur de requête */
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
-        /* Le tri */
-        String sort = null;
-
         /* Si on récupère les playlists ou les sons */
         switch(mUriMatcher.match(uri))
         {
@@ -115,8 +109,6 @@ public class ContentProvider extends android.content.ContentProvider
             case PLAYLISTS:
 
                 queryBuilder.setTables(TABLE_PLAYLISTS);
-                queryBuilder.setProjectionMap(mPlaylistsMap);
-
                 sortOrder = PLAYLISTS_TITLE;
 
                 break;
@@ -125,7 +117,6 @@ public class ContentProvider extends android.content.ContentProvider
             case SONGS:
 
                 queryBuilder.setTables(TABLE_SONGS);
-                queryBuilder.setProjectionMap(mPlaylistsMap);
 
                 break;
 
@@ -188,7 +179,7 @@ public class ContentProvider extends android.content.ContentProvider
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs)
     {
-        int count = 0;
+        int count;
 
         switch(mUriMatcher.match(uri))
         {

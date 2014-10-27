@@ -15,6 +15,8 @@ import com.thomas.playlists.R;
 
 /**
  * Created by ThomasHiron on 27/10/2014.
+ *
+ * Adapter pour les photos d'un artiste
  */
 public class ImagesAdapter extends ArrayAdapter<String>
 {
@@ -49,10 +51,14 @@ public class ImagesAdapter extends ArrayAdapter<String>
         display.getSize(size);
 
         /* Calcul final, avec margin */
-        int width = (int) size.x / 3 - 30;
+        int width = size.x / 3 - 30;
 
         /* Picasso */
-        Picasso.with(view.getContext()).load(getItem(position)).resize(width, width).centerCrop().into(image);
+        Picasso.with(view.getContext())
+                .load(getItem(position))
+                .resize(width, width)
+                .centerCrop()
+                .into(image);
 
         /* Retour de la vue */
         return view;

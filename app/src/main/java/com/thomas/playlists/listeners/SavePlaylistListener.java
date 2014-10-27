@@ -22,6 +22,8 @@ import java.util.List;
 
 /**
  * Created by ThomasHiron on 20/10/2014.
+ *
+ * Gère la sauvegarde et suppression d'une playlist
  */
 public class SavePlaylistListener implements View.OnClickListener
 {
@@ -36,8 +38,8 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Constructeur appelé suite à un retour de résultats de l'api
      *
-     *  @param playlistAdapter
-     * @param playlistFragment
+     * @param playlistAdapter L'adapteur qui contient les morceaux
+     * @param playlistFragment Le fragment qui a généré le clic
      */
     public SavePlaylistListener(PlaylistAdapter playlistAdapter, FragmentActivity playlistFragment)
     {
@@ -54,10 +56,10 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Constructeur appelé grâce à une playlist existante
      *
-     * @param playlistAdapter
-     * @param playlistFragment
-     * @param saveButton
-     * @param title
+     * @param playlistAdapter L'adapteur qui contient les morceaux
+     * @param playlistFragment Le fragment qui a généré le clic
+     * @param saveButton Le bouton Enregistrer
+     * @param title Le titre du fragment dans le bandeau
      */
     public SavePlaylistListener(PlaylistAdapter playlistAdapter, FragmentActivity playlistFragment, Button saveButton, View title)
     {
@@ -111,7 +113,7 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Titre renseigné, on enregistre la playlist et les morceaux
      *
-     * @param title
+     * @param title Le titre de la playlist à enregistrer
      */
     public void dialogValidated(String title)
     {
@@ -136,13 +138,13 @@ public class SavePlaylistListener implements View.OnClickListener
         if(mSongsEchoNestAdapter == null)
         {
             /* On prend les sons SQL */
-            for(int i = 0, l = mSongsSQL.getCount() ; i < l ; ++i)
+            for(int i = 0, l = mSongsSQL.getCount(); i < l; ++i)
                 insertSong(mSongsSQL.getItem(i), context);
         }
         else
         {
             /* On prend les sons EchoNest */
-            for(int i = 0, l = mSongsEchoNestAdapter.getCount() ; i < l ; ++i)
+            for(int i = 0, l = mSongsEchoNestAdapter.getCount(); i < l; ++i)
                 insertSongEchoNest(mSongsEchoNestAdapter.getItem(i), context);
         }
 
@@ -162,8 +164,8 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Insertion des sons si suppression/ajout
      *
-     * @param song
-     * @param context
+     * @param song Le son à insérer dans la BDD
+     * @param context Le contexte
      */
     private void insertSong(PlaylistSong song, Context context)
     {
@@ -209,8 +211,8 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Insertion des sons si EchoNest
      *
-     * @param playlistSong
-     * @param context
+     * @param playlistSong Le son à insérer dans la BDD
+     * @param context Le contexte
      */
     private void insertSongEchoNest(PlaylistSong playlistSong, Context context)
     {
@@ -249,7 +251,7 @@ public class SavePlaylistListener implements View.OnClickListener
 
         /* Les albums */
         ArrayList<String> albums = new ArrayList<String>();
-        String album = "";
+        String album;
 
         try
         {
@@ -304,8 +306,8 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Retourne l'id inséré
      *
-     * @param uri
-     * @return
+     * @param uri L'uri générée suite à l'insertion
+     * @return L'id inséré
      */
     private int getSongId(Uri uri)
     {

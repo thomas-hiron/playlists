@@ -2,6 +2,8 @@ package com.thomas.playlists.sqlite;
 
 /**
  * Created by ThomasHiron on 25/10/2014.
+ *
+ * Une playlist de la home
  */
 public class PlaylistItem
 {

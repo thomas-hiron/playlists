@@ -10,6 +10,8 @@ import com.thomas.playlists.sqlite.ContentProvider;
 
 /**
  * Created by ThomasHiron on 27/10/2014.
+ *
+ * Au clic sur le bouton supprimer d'un morceau
  */
 public class RemoveSongListener implements View.OnClickListener
 {

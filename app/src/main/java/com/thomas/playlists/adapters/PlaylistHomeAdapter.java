@@ -12,6 +12,8 @@ import com.thomas.playlists.sqlite.PlaylistItem;
 
 /**
  * Created by ThomasHiron on 25/10/2014.
+ *
+ * Adapter pour la liste des playlists de la home
  */
 public class PlaylistHomeAdapter extends ArrayAdapter<PlaylistItem>
 {

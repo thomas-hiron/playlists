@@ -5,9 +5,9 @@ import com.echonest.api.v4.PlaylistParams;
 import java.util.ArrayList;
 
 /**
- * Classe gérant la recherche et la construction de la requête
- * <p/>
  * Created by ThomasHiron on 17/10/2014.
+ *
+ * Classe gérant la recherche et la construction de la requête
  */
 public class PlaylistSearch
 {
