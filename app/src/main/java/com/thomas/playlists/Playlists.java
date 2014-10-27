@@ -198,7 +198,11 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
      */
     public void refreshPlaylist()
     {
-        mPlaylistFragment.refresh();
-        mPlaylistFragment.addListener();
+        /* Si fragment non null */
+        if(mPlaylistFragment != null)
+        {
+            mPlaylistFragment.refresh();
+            mPlaylistFragment.addListener();
+        }
     }
 }

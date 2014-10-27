@@ -11,6 +11,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.echonest.api.v4.Artist;
 import com.echonest.api.v4.Biography;
@@ -18,6 +19,7 @@ import com.echonest.api.v4.EchoNestException;
 import com.echonest.api.v4.Image;
 import com.echonest.api.v4.Song;
 import com.thomas.playlists.PlaylistSong;
+import com.thomas.playlists.Playlists;
 import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.AlbumsAdapter;
 import com.thomas.playlists.adapters.ImagesAdapter;
@@ -173,6 +175,15 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
     @Override
     public void onLoadFinished(Loader<List<Artist>> artistLoader, List<Artist> artists)
     {
+        /* Une erreur s'est produite (aucune connexion) */
+        if(artists == null)
+        {
+            Toast.makeText(getActivity(), "Une erreur s'est produite avec l'API", Toast.LENGTH_LONG).show();
+            ((Playlists) getActivity()).removeLastFragment();
+
+            return;
+        }
+
         /* Le context */
         Context context = mView.getContext();
 
@@ -181,7 +192,6 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
 
         /* On récupère le premier artiste */
         Artist artist = artists.get(0);
-
 
         /* La biographie (wikipedia) */
         try
