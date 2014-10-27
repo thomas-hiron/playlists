@@ -1,6 +1,7 @@
 package com.thomas.playlists.fragments;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
@@ -11,12 +12,14 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.echonest.api.v4.Playlist;
 import com.echonest.api.v4.Song;
 import com.thomas.playlists.PlaylistSearch;
 import com.thomas.playlists.PlaylistSong;
+import com.thomas.playlists.Playlists;
 import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.PlaylistAdapter;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
@@ -37,6 +40,8 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     private PlaylistSearch mPlaylistSearch = null;
     private PlaylistAdapter mAdapter = null;
     private Playlist mPlaylist = null;
+    private TextView mLoading;
+    private TextView mNoResults;
 
     public PlaylistFragment()
     {
@@ -71,6 +76,9 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
                 mListener.onPlaylistItemClicked(mAdapter.getItem(i));
             }
         });
+        
+        mLoading = (TextView) view.findViewById(R.id.loadingResults);
+        mNoResults = (TextView) view.findViewById(R.id.noResults);
 
         return view;
     }
@@ -127,18 +135,30 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         {
             mPlaylist = playlist;
 
-            /* Ajout des morceaux */
-            refresh();
+            /* Aucun résultat */
+            if(mPlaylist.getSongs().size() == 0)
+            {
+                mNoResults.setTypeface(null, Typeface.ITALIC);
+                mNoResults.setVisibility(View.VISIBLE);
+            }
+            else
+            {
+                /* Ajout des morceaux */
+                refresh();
 
-            /* Ajout du listener pour l'enregistrement de la playlist */
-            addListener();
+                /* Ajout du listener pour l'enregistrement de la playlist */
+                addListener();
+            }
         }
-        /* Sinon affichage des erreurs */
+        /* Sinon affichage des erreurs, et on retourne en arrière */
         else if(mPlaylist == null)
+        {
             Toast.makeText(getActivity(), "Une erreur s'est produite avec l'API", Toast.LENGTH_LONG).show();
+            ((Playlists) getActivity()).removeLastFragment();
+        }
 
         /* Suppression du chargement */
-        getActivity().findViewById(R.id.loadingResults).setVisibility(View.GONE);
+        mLoading.setVisibility(View.GONE);
     }
 
     @Override
@@ -153,7 +173,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     public void addListener()
     {
         Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);
-        saveButton.setOnClickListener(new SavePlaylistListener(mPlaylist.getSongs(), getActivity()));
+        saveButton.setOnClickListener(new SavePlaylistListener(mAdapter, getActivity()));
     }
 
     /**
@@ -163,5 +183,8 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     {
         for(Song song : mPlaylist.getSongs())
             mAdapter.add(new PlaylistSong(song));
+        
+        /* On supprime le loading */
+        mLoading.setVisibility(View.GONE);
     }
 }

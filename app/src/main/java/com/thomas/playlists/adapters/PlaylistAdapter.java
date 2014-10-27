@@ -12,6 +12,7 @@ import com.echonest.api.v4.Song;
 import com.squareup.picasso.Picasso;
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
+import com.thomas.playlists.listeners.RemoveSongListener;
 
 /**
  * Created by ThomasHiron on 14/10/2014.
@@ -46,6 +47,7 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
             viewHolder.artist = ((TextView) view.findViewById(R.id.songArtistName));
             viewHolder.title = ((TextView) view.findViewById(R.id.songTitle));
             viewHolder.cover = (ImageView) view.findViewById(R.id.cover);
+            viewHolder.removeSong = (ImageView) view.findViewById(R.id.removeSong);
 
             /* Ajout de l'objet à la vue */
             view.setTag(viewHolder);
@@ -94,6 +96,10 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
             }
         }
 
+        /* Ajout du listener au clic sur la croix pour supprimer le morceau */
+        viewHolder.removeSong.setOnClickListener(new RemoveSongListener(view, playlistSong, this));
+        viewHolder.removeSong.setTag(playlistSong);
+
         /* Changement des textes */
         viewHolder.artist.setText(artistName);
         viewHolder.title.setText(title);
@@ -116,5 +122,6 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
         TextView artist;
         TextView title;
         ImageView cover;
+        ImageView removeSong;
     }
 }

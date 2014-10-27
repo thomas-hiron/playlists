@@ -9,6 +9,7 @@ import com.echonest.api.v4.Song;
  */
 public class PlaylistSong
 {
+    private int mId = 0;
     private Song mSong = null;
     private String mCover = null;
     private String mArtistName = null;
@@ -142,5 +143,15 @@ public class PlaylistSong
     public void setArtistAlbums(String[] artistAlbums)
     {
         this.artistAlbums = artistAlbums;
+    }
+
+    public int getId()
+    {
+        return mId;
+    }
+
+    public void setId(int id)
+    {
+        this.mId = id;
     }
 }

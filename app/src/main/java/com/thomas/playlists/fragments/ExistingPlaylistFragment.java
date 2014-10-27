@@ -69,6 +69,7 @@ public class ExistingPlaylistFragment extends Fragment
             do
             {
                 /* Récupération des données */
+                int songId = c.getInt(c.getColumnIndex(MyContentProvider.SONGS_ID));
                 String title = c.getString(c.getColumnIndex(MyContentProvider.SONGS_TITLE));
                 String cover = c.getString(c.getColumnIndex(MyContentProvider.SONGS_COVER));
                 double duration = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_DURATION));
@@ -87,6 +88,7 @@ public class ExistingPlaylistFragment extends Fragment
                 playlistSong.setCover(cover);
                 playlistSong.setArtistName(artistName);
                 playlistSong.setTitle(title);
+                playlistSong.setId(songId);
 
                 /* Pour la vue détaillée */
                 playlistSong.setDuration(duration);
@@ -126,7 +128,7 @@ public class ExistingPlaylistFragment extends Fragment
         /* Ajout du listener sur le bouton */
         Button saveButton = (Button) view.findViewById(R.id.savePlaylist);
         SavePlaylistListener savePlaylistListener = new SavePlaylistListener(
-                playlistSongs, getActivity(), saveButton, view.findViewById(R.id.playlistResultsLabel)
+                mAdapter, getActivity(), saveButton, view.findViewById(R.id.playlistResultsLabel)
         );
         saveButton.setOnClickListener(savePlaylistListener);
 
@@ -135,6 +137,9 @@ public class ExistingPlaylistFragment extends Fragment
 
         /* Ajout de l'id de la playlist */
         savePlaylistListener.setPlaylistId(playlistId);
+
+        /* Suppression du chargement */
+        view.findViewById(R.id.loadingResults).setVisibility(View.GONE);
 
         return view;
     }

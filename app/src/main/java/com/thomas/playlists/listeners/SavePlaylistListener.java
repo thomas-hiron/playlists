@@ -14,6 +14,7 @@ import com.echonest.api.v4.Song;
 import com.thomas.playlists.DialogPlaylistTitle;
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
+import com.thomas.playlists.adapters.PlaylistAdapter;
 import com.thomas.playlists.sqlite.MyContentProvider;
 
 import java.util.ArrayList;
@@ -24,24 +25,26 @@ import java.util.List;
  */
 public class SavePlaylistListener implements View.OnClickListener
 {
-    private ArrayList<PlaylistSong> mSongsSQL;
+    private PlaylistAdapter mSongsSQL;
     private FragmentActivity mPlaylistFragment;
     private TextView mTitle;
     private Button mIcon;
-    private List<Song> mSongsEchoNest = null;
+    private PlaylistAdapter mSongsEchoNestAdapter = null;
     private boolean mSaved;
     private int mPlaylistId;
 
     /**
      * Constructeur appelé suite à un retour de résultats de l'api
      *
-     * @param songs
+     *  @param playlistAdapter
      * @param playlistFragment
      */
-    public SavePlaylistListener(List<Song> songs, FragmentActivity playlistFragment)
+    public SavePlaylistListener(PlaylistAdapter playlistAdapter, FragmentActivity playlistFragment)
     {
         mPlaylistFragment = playlistFragment;
-        mSongsEchoNest = songs;
+
+        /* Ajout de l'adapter, on le garde en mémoire au cas où des sons soient supprimés */
+        mSongsEchoNestAdapter = playlistAdapter;
 
         mTitle = (TextView) mPlaylistFragment.findViewById(R.id.playlistResultsLabel);
         mIcon = (Button) mPlaylistFragment.findViewById(R.id.savePlaylist);
@@ -51,15 +54,17 @@ public class SavePlaylistListener implements View.OnClickListener
     /**
      * Constructeur appelé grâce à une playlist existante
      *
-     * @param playlistSongs
+     * @param playlistAdapter
      * @param playlistFragment
      * @param saveButton
      * @param title
      */
-    public SavePlaylistListener(ArrayList<PlaylistSong> playlistSongs, FragmentActivity playlistFragment, Button saveButton, View title)
+    public SavePlaylistListener(PlaylistAdapter playlistAdapter, FragmentActivity playlistFragment, Button saveButton, View title)
     {
         mPlaylistFragment = playlistFragment;
-        mSongsSQL = playlistSongs;
+
+        /* Ajout de l'adapter, on le garde en mémoire au cas où des sons soient supprimés */
+        mSongsSQL = playlistAdapter;
 
         mIcon = saveButton;
         mTitle = (TextView) title;
@@ -128,17 +133,17 @@ public class SavePlaylistListener implements View.OnClickListener
         mPlaylistId = Integer.parseInt(pathSegments.get(pathSegments.size() - 1));
 
         /* Insertion des sons */
-        if(mSongsEchoNest == null)
+        if(mSongsEchoNestAdapter == null)
         {
             /* On prend les sons SQL */
-            for(PlaylistSong song : mSongsSQL)
-                insertSong(song, context);
+            for(int i = 0, l = mSongsSQL.getCount() ; i < l ; ++i)
+                insertSong(mSongsSQL.getItem(i), context);
         }
         else
         {
             /* On prend les sons EchoNest */
-            for(Song song : mSongsEchoNest)
-                insertSong(song, context);
+            for(int i = 0, l = mSongsEchoNestAdapter.getCount() ; i < l ; ++i)
+                insertSongEchoNest(mSongsEchoNestAdapter.getItem(i), context);
         }
 
         /* On change le titre */
@@ -183,7 +188,6 @@ public class SavePlaylistListener implements View.OnClickListener
 
         /* Les albums */
         String[] albums = song.getArtistAlbums();
-        String album = "";
 
         /* Création de la chaine */
         for(String s : albums)
@@ -196,19 +200,25 @@ public class SavePlaylistListener implements View.OnClickListener
         songValues.put(MyContentProvider.SONGS_ARTIST_ALBUMS, sAlbums);
 
         /* Insertion */
-        context.getContentResolver().insert(MyContentProvider.CONTENT_URI_SONGS, songValues);
+        Uri uri = context.getContentResolver().insert(MyContentProvider.CONTENT_URI_SONGS, songValues);
+
+        /* Ajout de l'id */
+        song.setId(getSongId(uri));
     }
 
     /**
      * Insertion des sons si EchoNest
      *
-     * @param song
+     * @param playlistSong
      * @param context
      */
-    private void insertSong(Song song, Context context)
+    private void insertSongEchoNest(PlaylistSong playlistSong, Context context)
     {
         /* Les valeurs à insérer */
         ContentValues songValues = new ContentValues();
+
+        /* Le son */
+        Song song = playlistSong.getSong();
 
         /* Ajout des valeurs */
         songValues.put(MyContentProvider.SONGS_PLAYLISTS_ID, mPlaylistId);
@@ -285,7 +295,22 @@ public class SavePlaylistListener implements View.OnClickListener
         songValues.put(MyContentProvider.SONGS_ARTIST_ALBUMS, sAlbums);
 
         /* Insertion */
-        context.getContentResolver().insert(MyContentProvider.CONTENT_URI_SONGS, songValues);
+        Uri uri = context.getContentResolver().insert(MyContentProvider.CONTENT_URI_SONGS, songValues);
+
+        /* Ajout de l'id */
+        playlistSong.setId(getSongId(uri));
+    }
+
+    /**
+     * Retourne l'id inséré
+     *
+     * @param uri
+     * @return
+     */
+    private int getSongId(Uri uri)
+    {
+        List<String> pathSegments = uri.getPathSegments();
+        return Integer.parseInt(pathSegments.get(pathSegments.size() - 1));
     }
 
     public void setPlaylistId(int id)

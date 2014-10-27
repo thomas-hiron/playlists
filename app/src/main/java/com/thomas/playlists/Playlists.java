@@ -165,6 +165,14 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
             return;
         }
 
+        removeLastFragment();
+    }
+
+    /**
+     * Scroll et supprime le dernier fragment
+     */
+    public void removeLastFragment()
+    {
         /* Pour supprimer le dernier élement lors du scroll terminé */
         mViewPager.setRemoveLast(true);
 
