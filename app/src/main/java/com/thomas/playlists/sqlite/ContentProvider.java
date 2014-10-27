@@ -1,6 +1,5 @@
 package com.thomas.playlists.sqlite;
 
-import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
@@ -15,7 +14,7 @@ import java.util.HashMap;
 /**
  * Created by ThomasHiron on 24/10/2014.
  */
-public class MyContentProvider extends ContentProvider
+public class ContentProvider extends android.content.ContentProvider
 {
     private static final String PROVIDER_NAME = "com.thomas.playlists.provider.Playlists";
 
@@ -49,7 +48,7 @@ public class MyContentProvider extends ContentProvider
     private static final int SONGS = 2;
 
     /* L'helper sqlite */
-    MainDatabaseHelper mDBHelper;
+    DatabaseHelper mDBHelper;
 
     private HashMap<String, String> mPlaylistsMap;
 
@@ -93,7 +92,7 @@ public class MyContentProvider extends ContentProvider
     @Override
     public boolean onCreate()
     {
-        mDBHelper = new MainDatabaseHelper(getContext());
+        mDBHelper = new DatabaseHelper(getContext());
 
         mDatabase = mDBHelper.getWritableDatabase();
 
@@ -191,7 +190,7 @@ public class MyContentProvider extends ContentProvider
     {
         int count = 0;
 
-        switch (mUriMatcher.match(uri))
+        switch(mUriMatcher.match(uri))
         {
             case PLAYLISTS:
 

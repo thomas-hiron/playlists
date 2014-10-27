@@ -18,7 +18,7 @@ import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.PlaylistAdapter;
 import com.thomas.playlists.interfaces.OnPlaylistItemClicked;
 import com.thomas.playlists.listeners.SavePlaylistListener;
-import com.thomas.playlists.sqlite.MyContentProvider;
+import com.thomas.playlists.sqlite.ContentProvider;
 import com.thomas.playlists.sqlite.PlaylistItem;
 
 import java.util.ArrayList;
@@ -54,10 +54,10 @@ public class ExistingPlaylistFragment extends Fragment
 
         /* Récupération des sons */
         int playlistId = mPlaylistItem.getId();
-        String condition = MyContentProvider.SONGS_PLAYLISTS_ID + " = " + playlistId;
+        String condition = ContentProvider.SONGS_PLAYLISTS_ID + " = " + playlistId;
 
         /* On détecte la présence de playlists */
-        String URL = MyContentProvider.URL_SONGS;
+        String URL = ContentProvider.URL_SONGS;
         Uri playlistsUri = Uri.parse(URL);
         Cursor c = getActivity().getContentResolver().query(playlistsUri, null, condition, null, null);
 
@@ -69,18 +69,18 @@ public class ExistingPlaylistFragment extends Fragment
             do
             {
                 /* Récupération des données */
-                int songId = c.getInt(c.getColumnIndex(MyContentProvider.SONGS_ID));
-                String title = c.getString(c.getColumnIndex(MyContentProvider.SONGS_TITLE));
-                String cover = c.getString(c.getColumnIndex(MyContentProvider.SONGS_COVER));
-                double duration = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_DURATION));
-                double danceability = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_DANCEABILITY));
-                double tempo = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_TEMPO));
-                double hotttnesss = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_HOTTTNESSS));
-                double loudness = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_LOUDNESS));
-                String artistName = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_NAME));
-                String artistLocation = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_LOCATION));
-                double artistHotttnesss = c.getDouble(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_HOTTTNESSS));
-                String[] artistAlbums = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_ALBUMS)).split("\\[azerty\\]");
+                int songId = c.getInt(c.getColumnIndex(ContentProvider.SONGS_ID));
+                String title = c.getString(c.getColumnIndex(ContentProvider.SONGS_TITLE));
+                String cover = c.getString(c.getColumnIndex(ContentProvider.SONGS_COVER));
+                double duration = c.getDouble(c.getColumnIndex(ContentProvider.SONGS_DURATION));
+                double danceability = c.getDouble(c.getColumnIndex(ContentProvider.SONGS_DANCEABILITY));
+                double tempo = c.getDouble(c.getColumnIndex(ContentProvider.SONGS_TEMPO));
+                double hotttnesss = c.getDouble(c.getColumnIndex(ContentProvider.SONGS_HOTTTNESSS));
+                double loudness = c.getDouble(c.getColumnIndex(ContentProvider.SONGS_LOUDNESS));
+                String artistName = c.getString(c.getColumnIndex(ContentProvider.SONGS_ARTIST_NAME));
+                String artistLocation = c.getString(c.getColumnIndex(ContentProvider.SONGS_ARTIST_LOCATION));
+                double artistHotttnesss = c.getDouble(c.getColumnIndex(ContentProvider.SONGS_ARTIST_HOTTTNESSS));
+                String[] artistAlbums = c.getString(c.getColumnIndex(ContentProvider.SONGS_ARTIST_ALBUMS)).split("\\[azerty\\]");
 
                 PlaylistSong playlistSong = new PlaylistSong(null);
 

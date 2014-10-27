@@ -6,7 +6,7 @@ import android.widget.Toast;
 
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.adapters.PlaylistAdapter;
-import com.thomas.playlists.sqlite.MyContentProvider;
+import com.thomas.playlists.sqlite.ContentProvider;
 
 /**
  * Created by ThomasHiron on 27/10/2014.
@@ -34,10 +34,10 @@ public class RemoveSongListener implements View.OnClickListener
         if(songId != 0)
         {
             /* La condition */
-            String condition = MyContentProvider.SONGS_ID + " = " + songId;
+            String condition = ContentProvider.SONGS_ID + " = " + songId;
 
             /* Suppression du son */
-            mContext.getContentResolver().delete(MyContentProvider.CONTENT_URI_SONGS, condition, null);
+            mContext.getContentResolver().delete(ContentProvider.CONTENT_URI_SONGS, condition, null);
         }
 
         /* Suppression de la vue */

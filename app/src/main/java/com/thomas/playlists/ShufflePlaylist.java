@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 
-import com.thomas.playlists.sqlite.MyContentProvider;
+import com.thomas.playlists.sqlite.ContentProvider;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +19,7 @@ public class ShufflePlaylist
     {
         /* Récupération d'un artiste au hasard */
         /* On détecte la présence de playlists */
-        String URL = MyContentProvider.URL_SONGS;
+        String URL = ContentProvider.URL_SONGS;
         Uri playlistsUri = Uri.parse(URL);
         Cursor c = context.getContentResolver().query(playlistsUri, null, null, null, "RANDOM()");
 
@@ -28,7 +28,7 @@ public class ShufflePlaylist
 
         /* S'il y a des insertions */
         if(c.moveToFirst())
-            artistName = c.getString(c.getColumnIndex(MyContentProvider.SONGS_ARTIST_NAME));
+            artistName = c.getString(c.getColumnIndex(ContentProvider.SONGS_ARTIST_NAME));
         /* Sinon on en prend un aléatoire dans le tableau */
         else
         {

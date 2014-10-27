@@ -15,7 +15,7 @@ import com.thomas.playlists.DialogPlaylistTitle;
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.PlaylistAdapter;
-import com.thomas.playlists.sqlite.MyContentProvider;
+import com.thomas.playlists.sqlite.ContentProvider;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,14 +86,14 @@ public class SavePlaylistListener implements View.OnClickListener
     private void deletePlaylist()
     {
         /* Les conditions */
-        String songCondition = MyContentProvider.SONGS_PLAYLISTS_ID + " = " + mPlaylistId;
-        String playlistCondition = MyContentProvider.PLAYLISTS_ID + " = " + mPlaylistId;
+        String songCondition = ContentProvider.SONGS_PLAYLISTS_ID + " = " + mPlaylistId;
+        String playlistCondition = ContentProvider.PLAYLISTS_ID + " = " + mPlaylistId;
 
         /* Suppression des sons */
-        mPlaylistFragment.getContentResolver().delete(MyContentProvider.CONTENT_URI_SONGS, songCondition, null);
+        mPlaylistFragment.getContentResolver().delete(ContentProvider.CONTENT_URI_SONGS, songCondition, null);
 
         /* Suppression de la playlist */
-        mPlaylistFragment.getContentResolver().delete(MyContentProvider.CONTENT_URI_PLAYLISTS, playlistCondition, null);
+        mPlaylistFragment.getContentResolver().delete(ContentProvider.CONTENT_URI_PLAYLISTS, playlistCondition, null);
 
         /* On change le titre */
         mTitle.setText(R.string.results);
@@ -123,10 +123,10 @@ public class SavePlaylistListener implements View.OnClickListener
 
         /* Les valeurs à insérer */
         ContentValues playlistValues = new ContentValues();
-        playlistValues.put(MyContentProvider.PLAYLISTS_TITLE, title);
+        playlistValues.put(ContentProvider.PLAYLISTS_TITLE, title);
 
         /* Insertion */
-        Uri uri = context.getContentResolver().insert(MyContentProvider.CONTENT_URI_PLAYLISTS, playlistValues);
+        Uri uri = context.getContentResolver().insert(ContentProvider.CONTENT_URI_PLAYLISTS, playlistValues);
 
         /* On récupère l'id */
         List<String> pathSegments = uri.getPathSegments();
@@ -171,17 +171,17 @@ public class SavePlaylistListener implements View.OnClickListener
         ContentValues songValues = new ContentValues();
 
         /* Ajout des valeurs */
-        songValues.put(MyContentProvider.SONGS_PLAYLISTS_ID, mPlaylistId);
-        songValues.put(MyContentProvider.SONGS_TITLE, song.getTitle());
-        songValues.put(MyContentProvider.SONGS_ARTIST_NAME, song.getArtistName());
+        songValues.put(ContentProvider.SONGS_PLAYLISTS_ID, mPlaylistId);
+        songValues.put(ContentProvider.SONGS_TITLE, song.getTitle());
+        songValues.put(ContentProvider.SONGS_ARTIST_NAME, song.getArtistName());
 
-        songValues.put(MyContentProvider.SONGS_DURATION, song.getDuration());
-        songValues.put(MyContentProvider.SONGS_DANCEABILITY, song.getDanceability());
-        songValues.put(MyContentProvider.SONGS_TEMPO, song.getTempo());
-        songValues.put(MyContentProvider.SONGS_HOTTTNESSS, song.getHotttnesss());
-        songValues.put(MyContentProvider.SONGS_LOUDNESS, song.getLoudness());
-        songValues.put(MyContentProvider.SONGS_ARTIST_LOCATION, song.getArtistLocation());
-        songValues.put(MyContentProvider.SONGS_ARTIST_HOTTTNESSS, song.getArtistHotttnesss());
+        songValues.put(ContentProvider.SONGS_DURATION, song.getDuration());
+        songValues.put(ContentProvider.SONGS_DANCEABILITY, song.getDanceability());
+        songValues.put(ContentProvider.SONGS_TEMPO, song.getTempo());
+        songValues.put(ContentProvider.SONGS_HOTTTNESSS, song.getHotttnesss());
+        songValues.put(ContentProvider.SONGS_LOUDNESS, song.getLoudness());
+        songValues.put(ContentProvider.SONGS_ARTIST_LOCATION, song.getArtistLocation());
+        songValues.put(ContentProvider.SONGS_ARTIST_HOTTTNESSS, song.getArtistHotttnesss());
 
         /* Les albums et le cover */
         String sAlbums = "";
@@ -194,13 +194,13 @@ public class SavePlaylistListener implements View.OnClickListener
             sAlbums += s + "[azerty]";
 
         /* Ajout du cover */
-        songValues.put(MyContentProvider.SONGS_COVER, song.getCover());
+        songValues.put(ContentProvider.SONGS_COVER, song.getCover());
 
         /* Ajout des albums */
-        songValues.put(MyContentProvider.SONGS_ARTIST_ALBUMS, sAlbums);
+        songValues.put(ContentProvider.SONGS_ARTIST_ALBUMS, sAlbums);
 
         /* Insertion */
-        Uri uri = context.getContentResolver().insert(MyContentProvider.CONTENT_URI_SONGS, songValues);
+        Uri uri = context.getContentResolver().insert(ContentProvider.CONTENT_URI_SONGS, songValues);
 
         /* Ajout de l'id */
         song.setId(getSongId(uri));
@@ -221,19 +221,19 @@ public class SavePlaylistListener implements View.OnClickListener
         Song song = playlistSong.getSong();
 
         /* Ajout des valeurs */
-        songValues.put(MyContentProvider.SONGS_PLAYLISTS_ID, mPlaylistId);
-        songValues.put(MyContentProvider.SONGS_TITLE, song.getTitle());
-        songValues.put(MyContentProvider.SONGS_ARTIST_NAME, song.getArtistName());
+        songValues.put(ContentProvider.SONGS_PLAYLISTS_ID, mPlaylistId);
+        songValues.put(ContentProvider.SONGS_TITLE, song.getTitle());
+        songValues.put(ContentProvider.SONGS_ARTIST_NAME, song.getArtistName());
 
         try
         {
-            songValues.put(MyContentProvider.SONGS_DURATION, song.getDuration());
-            songValues.put(MyContentProvider.SONGS_DANCEABILITY, song.getDanceability());
-            songValues.put(MyContentProvider.SONGS_TEMPO, song.getTempo());
-            songValues.put(MyContentProvider.SONGS_HOTTTNESSS, song.getSongHotttnesss());
-            songValues.put(MyContentProvider.SONGS_LOUDNESS, song.getLoudness());
-            songValues.put(MyContentProvider.SONGS_ARTIST_LOCATION, song.getArtistLocation().getPlaceName());
-            songValues.put(MyContentProvider.SONGS_ARTIST_HOTTTNESSS, song.getArtistHotttnesss());
+            songValues.put(ContentProvider.SONGS_DURATION, song.getDuration());
+            songValues.put(ContentProvider.SONGS_DANCEABILITY, song.getDanceability());
+            songValues.put(ContentProvider.SONGS_TEMPO, song.getTempo());
+            songValues.put(ContentProvider.SONGS_HOTTTNESSS, song.getSongHotttnesss());
+            songValues.put(ContentProvider.SONGS_LOUDNESS, song.getLoudness());
+            songValues.put(ContentProvider.SONGS_ARTIST_LOCATION, song.getArtistLocation().getPlaceName());
+            songValues.put(ContentProvider.SONGS_ARTIST_HOTTTNESSS, song.getArtistHotttnesss());
         }
         catch(EchoNestException e)
         {
@@ -284,7 +284,7 @@ public class SavePlaylistListener implements View.OnClickListener
             while((cover = song.getString("tracks[" + cpt + "].release_image")) == null)
                 ++cpt;
 
-            songValues.put(MyContentProvider.SONGS_COVER, cover);
+            songValues.put(ContentProvider.SONGS_COVER, cover);
         }
         catch(IndexOutOfBoundsException e)
         {
@@ -292,10 +292,10 @@ public class SavePlaylistListener implements View.OnClickListener
         }
 
         /* Ajout des albums */
-        songValues.put(MyContentProvider.SONGS_ARTIST_ALBUMS, sAlbums);
+        songValues.put(ContentProvider.SONGS_ARTIST_ALBUMS, sAlbums);
 
         /* Insertion */
-        Uri uri = context.getContentResolver().insert(MyContentProvider.CONTENT_URI_SONGS, songValues);
+        Uri uri = context.getContentResolver().insert(ContentProvider.CONTENT_URI_SONGS, songValues);
 
         /* Ajout de l'id */
         playlistSong.setId(getSongId(uri));

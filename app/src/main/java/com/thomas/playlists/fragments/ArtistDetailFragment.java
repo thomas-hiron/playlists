@@ -2,20 +2,14 @@ package com.thomas.playlists.fragments;
 
 
 import android.content.Context;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.echonest.api.v4.Artist;
@@ -23,11 +17,13 @@ import com.echonest.api.v4.Biography;
 import com.echonest.api.v4.EchoNestException;
 import com.echonest.api.v4.Image;
 import com.echonest.api.v4.Song;
-import com.squareup.picasso.Picasso;
 import com.thomas.playlists.PlaylistSong;
 import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.AlbumsAdapter;
+import com.thomas.playlists.adapters.ImagesAdapter;
 import com.thomas.playlists.loaders.ArtistLoader;
+import com.thomas.playlists.viewsExtended.AlbumsListView;
+import com.thomas.playlists.viewsExtended.ImagesGridView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +36,7 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
     private PlaylistSong mSong;
     private View mView;
     private static int ARTIST_LOADER_ID = 2;
+    private static int NB_PICTURES = 9;
 
     public ArtistDetailFragment(PlaylistSong song)
     {
@@ -125,7 +122,8 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
         }
 
         /* La listView */
-        ListView listAlbums = (ListView) mView.findViewById(R.id.artistDetailAlbums);
+        AlbumsListView listAlbums = (AlbumsListView) mView.findViewById(R.id.artistDetailAlbums);
+        listAlbums.setExpanded(true);
 
         /* On prévient le scroll car déjà dans scrollView */
         listAlbums.setOnTouchListener(new View.OnTouchListener()
@@ -235,39 +233,16 @@ public class ArtistDetailFragment extends Fragment implements LoaderManager.Load
             /* Les images */
             List<Image> images = artist.getImages();
 
-            /* La vue conteneur */
-            LinearLayout imagesContainer = (LinearLayout) mView.findViewById(R.id.artistDetailImages);
+            /* La vue conteneur et l'adapter */
+            ImagesGridView imagesContainer = (ImagesGridView) mView.findViewById(R.id.artistDetailImages);
+            imagesContainer.setExpanded(true);
+            ImagesAdapter imagesAdapter = new ImagesAdapter(context);
 
-            /* Calcule de la taille de l'écran */
-            WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
-            Display display = wm.getDefaultDisplay();
-            Point size = new Point();
-            display.getSize(size);
+            /* Ajout des urls à la liste */
+            for(int i = 0, l = Math.min(NB_PICTURES, images.size()); i < l; ++i)
+                imagesAdapter.add(images.get(i).getURL());
 
-            /* Calcul final, avec margin */
-            int width = (int) size.x / 3 - 30;
-
-            for(int i = 0, l = Math.min(3, images.size()); i < l; ++i)
-            {
-                /* Création de l'imageVIew */
-                ImageView imageView = new ImageView(context);
-
-                /* Ajout d'un margin à la fin */
-                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT);
-                lp.setMargins(0, 0, 10, 0);
-                imageView.setLayoutParams(lp);
-
-                /* Ajout de la vue */
-                imagesContainer.addView(imageView);
-
-                /* Chargement de l'image */
-                Picasso.with(context)
-                        .load(images.get(i).getURL())
-                        .resize(width, width)
-                        .centerCrop()
-                        .into(imageView);
-            }
+            imagesContainer.setAdapter(imagesAdapter);
 
             /* Si aucune image, on cache les vues */
             if(images.size() == 0)

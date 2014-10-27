@@ -20,7 +20,7 @@ import com.thomas.playlists.R;
 import com.thomas.playlists.adapters.PlaylistHomeAdapter;
 import com.thomas.playlists.interfaces.OnHomeButtonClicked;
 import com.thomas.playlists.listeners.HomeButtonsListener;
-import com.thomas.playlists.sqlite.MyContentProvider;
+import com.thomas.playlists.sqlite.ContentProvider;
 import com.thomas.playlists.sqlite.PlaylistItem;
 
 /**
@@ -62,7 +62,7 @@ public class HomeFragment extends Fragment
         mAdapter = new PlaylistHomeAdapter(getActivity());
 
         /* On détecte la présence de playlists */
-        String URL = MyContentProvider.URL_PLAYLISTS;
+        String URL = ContentProvider.URL_PLAYLISTS;
         Uri playlistsUri = Uri.parse(URL);
         Cursor c = getActivity().getContentResolver().query(playlistsUri, null, null, null, null);
 
@@ -72,8 +72,8 @@ public class HomeFragment extends Fragment
             {
                 /* Création de l'objet */
                 PlaylistItem playlistItem = new PlaylistItem();
-                playlistItem.setId(Integer.parseInt(c.getString(c.getColumnIndex(MyContentProvider.PLAYLISTS_ID))));
-                playlistItem.setTitle(c.getString(c.getColumnIndex(MyContentProvider.PLAYLISTS_TITLE)));
+                playlistItem.setId(Integer.parseInt(c.getString(c.getColumnIndex(ContentProvider.PLAYLISTS_ID))));
+                playlistItem.setTitle(c.getString(c.getColumnIndex(ContentProvider.PLAYLISTS_TITLE)));
 
                 /* Ajout à la liste */
                 mAdapter.add(playlistItem);

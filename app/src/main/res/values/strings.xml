@@ -37,5 +37,6 @@
     <string name="playlistRemoved">La playlist a bien été supprimée</string>
     <string name="removeSong">Supprimer le morceau</string>
     <string name="noResults">Aucun résultat</string>
+    <string name="pictures">Photos</string>
 
 </resources>

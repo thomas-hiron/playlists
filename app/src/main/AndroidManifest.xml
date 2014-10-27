@@ -23,7 +23,7 @@
         </activity>
 
         <provider
-            android:name=".sqlite.MyContentProvider"
+            android:name=".sqlite.ContentProvider"
             android:authorities="com.thomas.playlists.provider.Playlists">
         </provider>
 
