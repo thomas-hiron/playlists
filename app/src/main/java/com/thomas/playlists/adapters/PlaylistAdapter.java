@@ -34,13 +34,30 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View view;
+        ViewHolder viewHolder;
 
         /* Création de la vue */
         if(convertView == null)
+        {
             view = mInflater.inflate(R.layout.fragment_item_song, parent, false);
+
+            /* Création d'un viewHolder pour garder les vues */
+            viewHolder = new ViewHolder();
+            viewHolder.artist = ((TextView) view.findViewById(R.id.songArtistName));
+            viewHolder.title = ((TextView) view.findViewById(R.id.songTitle));
+            viewHolder.cover = (ImageView) view.findViewById(R.id.cover);
+
+            /* Ajout de l'objet à la vue */
+            view.setTag(viewHolder);
+        }
         /* On garde la vue transmise */
         else
+        {
             view = convertView;
+
+            /* Récupération du holder */
+            viewHolder = (ViewHolder) view.getTag();
+        }
 
         /* Récupération du son */
         PlaylistSong playlistSong = getItem(position);
@@ -53,8 +70,11 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
         /* L'image de l'artiste */
         String cover = playlistSong.getCover();
 
-        /* Si résultat venant de l'api, on n'a pas le cover */
-        if(song != null)
+        /*
+         * Si résultat venant de l'api, on n'a pas le cover
+         * (la première fois, ensuite il est présent lors du rafraichissement de la liste)
+         */
+        if(song != null && cover == null)
         {
             try
             {
@@ -74,23 +94,27 @@ public class PlaylistAdapter extends ArrayAdapter<PlaylistSong>
             }
         }
 
-        /* Modification des textes des textView */
-        ((TextView) view.findViewById(R.id.songArtistName)).setText(artistName);
-        ((TextView) view.findViewById(R.id.songTitle)).setText(title);
-
-        /* Suppression du chargement */
-        ((View) parent.getParent()).findViewById(R.id.loadingResults).setVisibility(View.GONE);
-
-        /* L'image */
-        ImageView imageView = (ImageView) view.findViewById(R.id.cover);
+        /* Changement des textes */
+        viewHolder.artist.setText(artistName);
+        viewHolder.title.setText(title);
 
         /* Ajout de l'image */
         if(cover != null && !cover.equals(""))
-            Picasso.with(getContext()).load(cover).into(imageView);
+            Picasso.with(getContext()).load(cover).into(viewHolder.cover);
+        /* Sinon suppression de l'image */
+        else
+            viewHolder.cover.setImageBitmap(null);
 
         /* Ajout de la cover */
         playlistSong.setCover(cover);
 
         return view;
+    }
+
+    static class ViewHolder
+    {
+        TextView artist;
+        TextView title;
+        ImageView cover;
     }
 }

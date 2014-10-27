@@ -36,6 +36,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     private OnPlaylistItemClicked mListener;
     private PlaylistSearch mPlaylistSearch = null;
     private PlaylistAdapter mAdapter = null;
+    private Playlist mPlaylist = null;
 
     public PlaylistFragment()
     {
@@ -59,7 +60,7 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
         View view = inflater.inflate(R.layout.fragment_playlist_results, container, false);
 
         // Set the adapter
-        AbsListView mListView = (AbsListView) view.findViewById(R.id.listPlaylistResults);
+        final AbsListView mListView = (AbsListView) view.findViewById(R.id.listPlaylistResults);
         mListView.setAdapter(mAdapter);
 
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -105,11 +106,16 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public Loader<Playlist> onCreateLoader(int i, Bundle bundle)
     {
-        /* Déclaration et initialisation du loader */
-        PlayListLoader loader = new PlayListLoader(getActivity());
+        PlayListLoader loader = null;
 
-        /* Ajout du playlistSearch */
-        loader.setPlaylistSearch(mPlaylistSearch);
+        if(mPlaylist == null)
+        {
+            /* Déclaration et initialisation du loader */
+            loader = new PlayListLoader(getActivity(), mPlaylistSearch);
+
+            /* Ajout du playlistSearch */
+            loader.setPlaylistSearch(mPlaylistSearch);
+        }
 
         return loader;
     }
@@ -117,24 +123,45 @@ public class PlaylistFragment extends Fragment implements LoaderManager.LoaderCa
     @Override
     public void onLoadFinished(Loader<Playlist> objectLoader, Playlist playlist)
     {
-        if(playlist != null)
+        if(playlist != null && mPlaylist == null)
         {
+            mPlaylist = playlist;
+
             /* Ajout des morceaux */
-            for(Song song : playlist.getSongs())
-                mAdapter.add(new PlaylistSong(song));
+            refresh();
 
             /* Ajout du listener pour l'enregistrement de la playlist */
-            Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);
-            saveButton.setOnClickListener(new SavePlaylistListener(playlist.getSongs(), getActivity()));
+            addListener();
         }
         /* Sinon affichage des erreurs */
-        else
+        else if(mPlaylist == null)
             Toast.makeText(getActivity(), "Une erreur s'est produite avec l'API", Toast.LENGTH_LONG).show();
+
+        /* Suppression du chargement */
+        getActivity().findViewById(R.id.loadingResults).setVisibility(View.GONE);
     }
 
     @Override
     public void onLoaderReset(Loader<Playlist> objectLoader)
     {
 
+    }
+
+    /**
+     * Ajoute le listener pour la sauvegarde de la playlist
+     */
+    public void addListener()
+    {
+        Button saveButton = (Button) getActivity().findViewById(R.id.savePlaylist);
+        saveButton.setOnClickListener(new SavePlaylistListener(mPlaylist.getSongs(), getActivity()));
+    }
+
+    /**
+     * Rafraichit l'adapter
+     */
+    public void refresh()
+    {
+        for(Song song : mPlaylist.getSongs())
+            mAdapter.add(new PlaylistSong(song));
     }
 }

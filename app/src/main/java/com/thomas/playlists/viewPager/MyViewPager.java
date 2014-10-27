@@ -1,8 +1,11 @@
 package com.thomas.playlists.viewPager;
 
-import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
+
+import com.thomas.playlists.Playlists;
+import com.thomas.playlists.fragments.SongDetailFragment;
 
 /**
  * Class héritant de ViewPager pour empêcher le scroll dans les vues
@@ -13,9 +16,9 @@ public class MyViewPager extends ViewPager
 {
     private boolean mRemoveLast = false;
 
-    public MyViewPager(Context context)
+    public MyViewPager(final Playlists playlists)
     {
-        super(context);
+        super(playlists);
 
         /* Listener de scroll */
         setOnPageChangeListener(new OnPageChangeListener()
@@ -46,9 +49,23 @@ public class MyViewPager extends ViewPager
 
                     /* Pour ne pas repasser dans la boucle */
                     mRemoveLast = false;
+
+                    /* L'adapter du viewPager */
+                    ViewPagerAdapter adapter = getAdapter();
+                    Fragment item = adapter.getItem(adapter.getCount() - 1);
+
+                    /* Si on revient du détail de l'artist, on met à jour la playlist */
+                    if(String.valueOf(SongDetailFragment.class).matches(String.valueOf(item.getClass())))
+                        playlists.refreshPlaylist();
                 }
             }
         });
+    }
+
+    @Override
+    public ViewPagerAdapter getAdapter()
+    {
+        return (ViewPagerAdapter) super.getAdapter();
     }
 
     @Override

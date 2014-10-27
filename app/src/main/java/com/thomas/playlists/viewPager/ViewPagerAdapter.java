@@ -64,6 +64,10 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter
     @Override
     public int getItemPosition(Object object)
     {
-        return POSITION_NONE;
+        /* Si l'objet n'existe pas ou qu'il y a un seul élément (home) -> On recharge */
+        if(mList.indexOf(object) == -1 || getCount() == 1)
+            return POSITION_NONE;
+        else
+            return POSITION_UNCHANGED;
     }
 }

@@ -83,9 +83,6 @@ public class SongDetailFragment extends Fragment
         /* Ajout ou suppression de l'image */
         if(cover != null && !cover.equals(""))
             Picasso.with(view.getContext()).load(cover).into(imageView);
-        else
-            imageView.setVisibility(View.GONE);
-
 
         /* Ajout de l'artiste */
         TextView artist = (TextView) view.findViewById(R.id.songDetailArtist);

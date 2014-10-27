@@ -1,27 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal"
-              tools:context="playlists.gobelins.com.echoplaylists.SongFragment"
-              android:weightSum="1">
+<LinearLayout
+    android:id="@+id/front"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:weightSum="1"
+    tools:context="playlists.gobelins.com.echoplaylists.SongFragment">
 
     <ImageView
         android:id="@+id/cover"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_gravity="center_vertical"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:background="@android:color/darker_gray"
         android:contentDescription="@string/mCover"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_marginEnd="5dip"
         android:layout_marginRight="5dip"
-        android:layout_marginEnd="5dip">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/songArtistName"
@@ -36,6 +38,15 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_dark"
+        android:orientation="horizontal">
 
     </LinearLayout>
 

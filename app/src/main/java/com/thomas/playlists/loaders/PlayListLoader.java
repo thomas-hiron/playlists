@@ -18,9 +18,10 @@ public class PlayListLoader extends AsyncTaskLoader<Playlist>
     private Playlist mPlaylist = null;
     private PlaylistSearch mPlaylistSearch = null;
 
-    public PlayListLoader(Context context)
+    public PlayListLoader(Context context, PlaylistSearch playlistSearch)
     {
         super(context);
+        mPlaylistSearch = playlistSearch;
     }
 
     @Override

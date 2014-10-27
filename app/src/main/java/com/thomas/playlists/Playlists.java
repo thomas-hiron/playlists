@@ -23,6 +23,7 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 {
     private ViewPagerAdapter mViewPagerAdapter = null;
     private MyViewPager mViewPager = null;
+    private PlaylistFragment mPlaylistFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -105,6 +106,9 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
         /* Le fragment */
         PlaylistFragment playlistFragment = new PlaylistFragment();
 
+        /* Ajout du fragment à l'app */
+        mPlaylistFragment = playlistFragment;
+
         /* Ajout du nouveau fragment */
         mViewPagerAdapter.add(playlistFragment);
 
@@ -178,5 +182,15 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
 
         /* Scroll dans la vue */
         mViewPager.setCurrentItem(mViewPagerAdapter.getCount() - 1, true);
+    }
+
+    /**
+     * Retour du détail des artists, on rafraichit la playlist
+     * Le rafraichissement se fait après le scroll pour avoir la transition au modification de l'adapter
+     */
+    public void refreshPlaylist()
+    {
+        mPlaylistFragment.refresh();
+        mPlaylistFragment.addListener();
     }
 }
