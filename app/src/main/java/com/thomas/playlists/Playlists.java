@@ -37,7 +37,6 @@ public class Playlists extends FragmentActivity implements OnHomeButtonClicked, 
         /* Ajout de l'adapter au viewPager */
         mViewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         mViewPagerAdapter.add(new HomeFragment());
-//        mViewPagerAdapter.add(new AddPlaylistFragment());
         mViewPager.setAdapter(mViewPagerAdapter);
 
         /* Ajout de la clé à l'API */
